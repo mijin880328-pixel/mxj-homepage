@@ -717,6 +717,7 @@ footer {
     <li><a href="#video">영상 제작</a></li>
     <li><a href="#community">커뮤니티</a></li>
   </ul>
+  <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-lang="ko">KO</span><span data-lang="en">EN</span></button>
   <a class="nav-cta" href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener">
     <span class="dot"></span>무료 상담
   </a>
@@ -1269,5 +1270,276 @@ footer {
 })();
 </script>
 
+<!-- ============ i18n : KO / EN language switch ============ -->
+<style>
+.lang-toggle{
+  display:inline-flex; align-items:center; gap:0;
+  border:1px solid var(--line); background:rgba(255,255,255,.55);
+  border-radius:100px; padding:3px; cursor:pointer;
+  font-family:var(--sans); line-height:1; flex:none;
+  transition:border-color .25s var(--ease), background .25s var(--ease);
+}
+.lang-toggle:hover{ border-color:var(--ink-3); }
+.lang-toggle span{
+  display:inline-block; padding:6px 11px; border-radius:100px;
+  font-size:11.5px; font-weight:700; letter-spacing:.06em;
+  color:var(--ink-3);
+  transition:background .25s var(--ease), color .25s var(--ease);
+}
+.lang-toggle span.is-on{ background:var(--ink); color:#fff; }
+@media (max-width:420px){
+  .lang-toggle span{ padding:5px 8px; font-size:10.5px; }
+}
+html[lang="en"] body{ letter-spacing:0; }
+</style>
+<script>
+(function () {
+  /* 값(value)은 HTML 그대로 innerHTML 에 들어갑니다. */
+  var T = {
+    /* ---- NAV ---- */
+    "원스톱 F&B 솔루션": "One-Stop F&amp;B Solutions",
+    "서비스": "Services",
+    "상품": "Products",
+    "영상 제작": "Video",
+    "커뮤니티": "Community",
+    "무료 상담": "<span class=\"dot\"></span>Free Consultation",
+
+    /* ---- HERO ---- */
+    "원스톱 F&B 솔루션 · Since 2025": "One-Stop F&amp;B Solutions · Since 2025",
+    "외식업 20년 현장 경험, 그 이상의 솔루션": "20 years on the restaurant floor — and solutions that go further",
+    "사장님 가게의 모든 문제를 함께 풀어드립니다": "Every problem<br>in your restaurant,<br><em>solved together</em>",
+    "컨설팅부터 AI 프로덕션, 소프트웨어 공급, 조리사 파견, 메뉴 개발까지 — 현장을 아는 전문가가 곁에 있습니다.": "From consulting to AI production, software supply,<br>chef dispatch and menu development —<br>experts who know the floor are right beside you.",
+    "무료 상담 신청 →": "Get a Free Consultation <span class=\"arw\">→</span>",
+    "서비스 살펴보기": "Explore Services",
+    "상담 무료 · 영업 전화 없음 · 카카오톡으로 편하게": "<b>Free consultation</b> · No sales calls · Just message us on KakaoTalk",
+    "MXJ 핵심 지표 2026": "MXJ Key Figures <span>2026</span>",
+    "20년": "20<sup>yrs</sup>",
+    "외식업 현장 경력": "Years of F&amp;B field experience",
+    "운영·메뉴·마케팅 전 영역 직접 경험": "Hands-on across operations, menu and marketing",
+    "전문 서비스 영역": "Specialist service areas",
+    "컨설팅 · AI 프로덕션 · 소프트웨어 조리사 파견 · 메뉴 개발": "Consulting · AI Production · Software<br>Chef Dispatch · Menu Development",
+    "맞춤 솔루션": "Tailored solutions",
+    "규모·업종·단계별 개별 설계": "Designed individually by size, category and stage",
+
+    /* ---- EXPERTISE ---- */
+    "20년이 만든 신뢰, 현장에서 검증된 방법론": "Trust built over <em>20 years</em>,<br>methods proven on the floor",
+    "이론이 아닌 실제 운영에서 나온 노하우로 일합니다. 어떤 문제든 먼저 겪어본 사람이 옆에 있습니다.": "We work with know-how drawn from real operations, not theory.<br>Whatever the problem, someone who has already faced it stands beside you.",
+    "사장님의 상황에 맞게 설계합니다.": "Everything is designed around your situation.",
+    "외식업 경력": "Years in F&amp;B",
+    "서비스 영역": "Service areas",
+    "성장 가능성": "Growth potential",
+
+    /* ---- SERVICES ---- */
+    "Core Services": "Core Services",
+    "외식업에 특화된 5가지 전문 솔루션": "Five specialist solutions<br>built <em>for F&amp;B</em>",
+    "각 서비스는 독립적으로도 강력하고, 결합하면 더 큰 시너지를 냅니다.": "Each service is powerful on its own — combined, they create far greater synergy.",
+    "외식업 컨설팅": "F&amp;B Consulting",
+    "매출 구조 분석, 메뉴 개선, 인력 운영 최적화까지 직접 챙깁니다.": "Revenue structure analysis, menu improvement and staffing optimization — handled personally.",
+    "20년 현장 경험을 바탕으로 지금 가게에 딱 맞는 해결책을 제시합니다.": "Backed by 20 years on the floor, we propose the solution that fits your restaurant right now.",
+    "뜬구름 없이, 실행 가능한 방법만 이야기합니다.": "No vague talk — only methods you can actually execute.",
+    "AI 프로덕션": "AI Production",
+    "AI 기술을 활용한 마케팅 영상 제작, 콘텐츠 자동화, 광고 소재 생성을 지원합니다.": "Marketing video production, content automation and ad creative generation, all powered by AI.",
+    "대기업만의 것이었던 콘텐츠 파워를 자영업자도 가질 수 있도록 만들어드립니다.": "Content power once reserved for large corporations, now within reach for independent owners.",
+    "소프트웨어 공급 및 제작": "Software Supply &amp; Development",
+    "외식업 마케팅 플랫폼, AI 영양사 웹앱 등 실무에서 직접 개발하고 공급합니다.": "F&amp;B marketing platforms, AI dietitian web apps and more — developed and supplied from real practice.",
+    "바로 쓸 수 있는 소프트웨어, 복잡한 설정 없이 운영에 바로 활용할 수 있습니다.": "Ready-to-use software you can put to work immediately, with no complicated setup.",
+    "조리사 파견": "Chef Dispatch",
+    "20년 경력으로 검증된 전문 조리사를 필요한 시점에 파견합니다.": "We dispatch professional chefs, vetted through 20 years of experience, exactly when you need them.",
+    "오픈 준비, 메뉴 개발, 직원 교육, 위생 점검 등 단기 ·프로젝트 단위로 유연하게 활용하세요.": "Use them flexibly for short-term or project work — opening prep, menu development,<br>staff training, hygiene inspection and more.",
+    "정규 채용 전 검증 목적으로도 활용할 수 있습니다.": "They can also serve as a trial run before a full-time hire.",
+    "메뉴 개발": "Menu Development",
+    "잘 팔리는 메뉴를 함께 설계합니다. 원가·트렌드·조리 동선까지 고려한 실전형 메뉴 개발.": "We design menus that sell — practical menu development that accounts for cost, trends and kitchen flow.",
+    "신메뉴 출시부터 기존 메뉴 리뉴얼까지, 매출로 이어지는 메뉴를 만들어드립니다.": "From new menu launches to renewals of existing ones, we build menus that turn into revenue.",
+
+    /* ---- PRODUCTS (Smart Store) ---- */
+    "MXJ 스마트스토어 F&B 상품": "MXJ Smart Store<br><em>F&amp;B Products</em>",
+    "외식업 현장에서 바로 쓸 수 있는 솔루션. 구매 후 즉시 이용 가능합니다.": "Solutions you can use on the floor right away — available immediately after purchase.",
+    "스마트스토어 바로가기 →": "Go to the Smart Store <span class=\"arw\">→</span>",
+    "소프트웨어": "Software",
+    "AI 식단 영양사 플랫폼": "AI Meal-Plan Dietitian Platform",
+    "나트륨·염도까지 관리하는 AI 식단 영양사 웹앱.": "An AI dietitian web app that manages<br>even sodium and salinity levels.",
+    "55,000원": "KRW 55,000",
+    "스마트스토어 →": "Smart Store →",
+    "조리사 파견 수퍼 에이전트": "Chef Dispatch Super Agent",
+    "검증된 조리사를 파견해 드립니다.": "We dispatch vetted professional chefs.",
+    "프로젝트 단위로 유연하게 활용하세요.": "Use them flexibly on a per-project basis.",
+    "132,000원": "KRW 132,000",
+    "컨설팅": "Consulting",
+    "[MXJ] 외식업 컨설팅": "[MXJ] F&amp;B Consulting",
+    "메뉴 고민을 해결하는 현장 기반 종합 컨설팅 서비스.": "Field-based comprehensive consulting that solves your menu challenges.",
+    "5,500,000원": "KRW 5,500,000",
+    "[MXJ] 마케팅 AI 쇼츠 영상": "[MXJ] AI Marketing Shorts",
+    "AI영상을 활용한 마케팅용 쇼츠 콘텐츠 제작 서비스.": "Short-form marketing content produced with AI video.",
+    "330,000원": "KRW 330,000",
+    "외식업 메뉴 개발": "F&amp;B Menu Development",
+    "매출로 이어지는 신메뉴·리뉴얼 메뉴를 함께 설계합니다.": "We design new and renewed menus<br>that translate into revenue.",
+    "3,300,000원": "KRW 3,300,000",
+    "[AI] 음식 이미지 제작": "[AI] Food Image Creation",
+    "메뉴판·홍보용 음식 이미지를 AI로 제작해 드립니다.": "Food images for menus and promotions,<br>created with AI.",
+
+    /* ---- VIDEO ---- */
+    "AI 영상 제작, 크티 플레이스에서": "AI video production,<br>on <em>Ctee Place</em>",
+    "촬영+VFX+AI, AI 소프트웨어, 애니메이션까지 — 합리적인 가격으로 최고의 퀄리티를 제공합니다.": "Filming + VFX + AI, AI software, animation —<br>the highest quality at a reasonable price.",
+    "영상 쇼핑몰 바로가기 →": "Go to the Video Store <span class=\"arw\">→</span>",
+    "촬영": "Filming",
+    "촬영 + VFX + AI": "Filming + VFX + AI",
+    "커머스 광고 및 브랜드 통합 영상. 합리적인 가격의 고퀄리티 제작.": "Commerce ads and integrated brand films.<br>High-quality production at a fair price.",
+    "880,000원": "KRW 880,000",
+    "바로가기 →": "View →",
+    "AI 소프트웨어 개발": "AI Software Development",
+    "맞춤형 AI 소프트웨어 개발 서비스.": "Custom AI software development service.",
+    "AI 영상": "AI Video",
+    "[AI] 애니메이션": "[AI] Animation",
+    "AI 생성 애니메이션 콘텐츠 제작.": "AI-generated animation content production.",
+    "550,000원": "KRW 550,000",
+    "MXJ가 직접 만든 AI 콘텐츠": "<em>AI content</em> made by MXJ",
+    "브랜드 광고, 애니메이션, 캐릭터, 푸드 비주얼까지 — 실제 제작 사례입니다.": "Brand ads, animation, characters, food visuals — real work we have produced.",
+
+    /* ---- REVIEWS ---- */
+    "직접 이용해 주신 분들의 실제 후기": "<em>Real reviews</em><br>from people who used us",
+    "촬영·AI 영상부터 소프트웨어 개발까지 — 구매하신 분들이 남겨주신 후기입니다.": "From filming and AI video to software development —<br>reviews left by our customers.",
+    "촬영부터 VFX, AI까지 한 번에 진행할 수 있어 편리했어요. 상담도 친절했고 원하는 분위기를 잘 반영해 결과물의 완성도가 높았습니다. 피드백도 빠르게 반영해 주셔서 만족스러웠고, 콘텐츠 제작이 필요한 분들에게 추천하고 싶은 서비스예요.": "Handling filming, VFX and AI all in one place was so convenient. The consultation was friendly and they captured the mood I wanted, so the final quality was high. They applied feedback quickly too — a service I'd recommend to anyone who needs content produced.",
+    "기획부터 촬영 구도, 조명 세팅까지 혼자 헤매던 부분들을 짚어주셔서 속이 다 시원했습니다! 실전에 바로 써먹을 수 있는 꿀팁이 가득해 퀄리티가 확 달라졌네요. 콘텐츠 제작 고민하시는 분들께 강력 추천합니다.": "They pointed out everything I'd been struggling with alone — planning, camera composition, lighting setup. Such a relief! Packed with tips I could use immediately, and my quality changed dramatically. Strongly recommended for anyone weighing content production.",
+    "저희 업무에 딱 맞는 소프트웨어가 필요해서 상담받고 제작을 진행했는데 아웃풋도 만족스럽고 업무 효율성도 올라가서 조직 내부 평이 좋네요. 기획 미팅 때 요구사항을 꼼꼼하게 반영해 주셔서 저희 회사 환경에 딱 들어맞는 AI 웹앱이 나왔습니다.": "We needed software that fit our work exactly, so we consulted and had it built. The output is satisfying and efficiency went up, so internal reviews are great. They reflected our requirements carefully in the planning meetings, and the AI web app fits our company environment perfectly.",
+    "오류 없이 안정적으로 잘 돌아가요. 개발시간이 이렇게 줄어들 수 있구나... 큰 도움이 됐습니다. 감사합니다.": "It runs stably with no errors. I had no idea development time could shrink this much — a huge help. Thank you.",
+    "브랜드 느낌에 맞게 세련되고 고퀄로 나왔어요. AI영상인데도 어색함 없이 감각적이라 맘에 들어요. 또 이용할게요!": "It came out polished and high quality, right in line with our brand feel. Even though it's AI video, it's stylish with nothing awkward about it. I'll use them again!",
+    "마케팅용 쇼츠가 필요했는데 진짜 좋아요!! 트렌디하니까 홍보용으로 쓰기도 딱 좋고 완성도도 높고 기대이상! 제작 시간도 많이 아꼈고 감사합니다.": "I needed shorts for marketing and they're genuinely great!! Trendy, perfect for promotion, and the finish is beyond what I expected. Saved me a lot of production time — thank you.",
+    "캐릭터도 귀엽고 콘텐츠 만들 때 바로 쓰기 좋아요. 애니메이션 연출도 자연스럽고 생각했던 이미지랑 맞춰서 나와서 좋습니다.": "The character is cute and easy to drop straight into content. The animation direction feels natural and matched the image I had in mind.",
+    "썸네일부터 종합 편집까지 한 번에 다 챙겨주셔서 작업 효율이 정말 좋아졌어요! 퀄리티도 깔끔하고 유튜브에 바로 업로드하기 좋아요. 만족스러워서 다음에도 또 구매할게요.": "They covered everything from thumbnails to full editing in one go, and my workflow improved so much! Clean quality, ready to upload straight to YouTube. I was happy with it and will buy again.",
+    "숏폼에 바로 갖다 쓰기 너무 편하고 영상 퀄리티도 만족스럽습니다. 구성이 깔끔해서 작업시간 진짜 많이 단축됐어요. 앞으로도 필요할 때 자주 찾을 것 같아요.": "So easy to use directly in short-form, and the video quality is satisfying. The structure is clean, which really cut my working time. I'll be coming back whenever I need it.",
+    "빠르게 작업해 주셔서 정말 감사합니다. 요청드린 내용도 꼼꼼하게 반영해 주시고, 수정도 친절하게 진행해 주셔서 만족스러웠어요. 결과물도 기대했던 분위기가 잘 맞아 바로 활용할 수 있었습니다. 소통도 원활해서 믿고 맡길 수 있었어요.": "Thank you for working so quickly. They reflected my requests thoroughly and handled revisions kindly, so I was very satisfied. The result matched the mood I expected and I could use it right away. Communication was smooth, so I could trust them with the work.",
+    "아라밍 님": "Aramming",
+    "정다* 님": "Jeong Da*",
+    "김수* 님": "Kim Su*",
+    "조*민 님": "Jo *min",
+    "한맹땡 님": "Hanmaengttaeng",
+    "tti**** 님": "tti****",
+    "왕소 님": "Wangso",
+    "크노팡 님": "Knopang",
+    "조현* 님": "Jo Hyeon*",
+    "이주* 님": "Lee Ju*",
+    "[AI] 브랜드 필름": "[AI] Brand Film",
+    "[AI] 마케팅용 숏츠": "[AI] Marketing Shorts",
+    "[종합편집] 썸네일 포함 유튜브 콘텐츠": "[Full Edit] YouTube content incl. thumbnail",
+    "9:16 숏폼 (유튜브·틱톡)": "9:16 Short-form (YouTube · TikTok)",
+    "[썸네일] 유튜브 및 팟빵": "[Thumbnail] YouTube &amp; Podbbang",
+
+    /* ---- COMMUNITY ---- */
+    "'조리인' 커뮤니티": "The &lsquo;Jorin&rsquo; Community",
+    "외식업 사장님들이 정보를 나누는 네이버 카페입니다. 혼자 고민하지 마세요.": "A Naver Cafe where F&amp;B owners share information. Don't figure it out alone.",
+    "같은 고민을 가진 사람들이 이미 모여 있습니다": "People with the same questions<br>are already gathered here",
+    "실제 현장에서 일하는 사람들이 직접 공유하는 살아있는 정보를 만나보세요.": "Meet the living information shared directly<br>by people working on the floor.",
+    "검증된 레시피": "Verified recipes",
+    "전문 분야": "Specialist fields",
+    "재구매율": "Repurchase rate",
+    "카페 바로가기 →": "Visit the Cafe <span class=\"arw\">→</span>",
+
+    /* ---- CTA ---- */
+    "먼저 물어보세요, 부담 없이": "Just ask first,<br><span class=\"ser\">no pressure</span>",
+    "어떤 상황인지 말씀해 주시면 맞는 솔루션을 안내해드립니다. 상담은 무료이고, 영업 전화도 없습니다.": "Tell us your situation and we'll point you to the right solution.<br>Consultation is free, and there are no sales calls.",
+    "카카오 채널로 고민 털어놓기": "<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 3C6.48 3 2 6.72 2 11.28c0 2.88 1.68 5.4 4.2 6.96L5.04 21l4.32-2.16C10.2 19.08 11.1 19.2 12 19.2c5.52 0 10-3.72 10-8.28C22 6.72 17.52 3 12 3z\"/></svg>Tell us about it on our Kakao Channel",
+
+    /* ---- FOOTER ---- */
+    "원스톱 F&B 솔루션 외식업 컨설팅 · AI 프로덕션 · 소프트웨어 공급 · 조리사 파견 · 메뉴 개발": "One-Stop F&amp;B Solutions<br>F&amp;B Consulting · AI Production · Software Supply · Chef Dispatch · Menu Development",
+    "스마트스토어": "Smart Store",
+    "카카오 상담": "Kakao Chat",
+    "20년 외식업 현장 경험으로 함께합니다.": "Working alongside you with 20 years of F&amp;B field experience."
+  };
+
+  /* 같은 글자지만 마크업이 달라 개별 처리가 필요한 곳 */
+  var OVERRIDES = [
+    ['.credential-item:nth-child(2) .cred-num', '5<sup>areas</sup>'],
+    ['.expertise-stats .exp-stat:nth-child(2) .exp-stat-num', '5<span>areas</span>']
+  ];
+
+  var META = {
+    ko: {
+      title: 'MXJ — 원스톱 F&B 솔루션',
+      desc: document.querySelector('meta[name="description"]') ? document.querySelector('meta[name="description"]').getAttribute('content') : ''
+    },
+    en: {
+      title: 'MXJ — One-Stop F&B Solutions',
+      desc: 'MXJ — F&B consulting, AI production, software supply, chef dispatch and menu development. A one-stop F&B solution built on 20 years of on-site experience.'
+    }
+  };
+
+  function norm(s) { return s.replace(/\s+/g, ' ').trim(); }
+
+  function keyOf(el) {
+    var tmp = document.createElement('div');
+    tmp.innerHTML = el.innerHTML.replace(/<br\s*\/?>/gi, ' ');
+    return norm(tmp.textContent || '');
+  }
+
+  /* <li><a>서비스</a></li> 처럼 자식 하나를 감싸기만 하는 요소는 건너뛴다
+     (그대로 바꾸면 안쪽 링크가 사라짐) */
+  function isWrapper(el) {
+    if (el.children.length !== 1) return false;
+    return norm(el.textContent || '') === norm(el.children[0].textContent || '');
+  }
+
+  /* 번역 대상 수집 (한 번만) */
+  var targets = [];
+  var seen = [];
+  var nodes = document.querySelectorAll(
+    'h1,h2,h3,h4,p,span,div,a,li,b,strong,em,sup,button'
+  );
+  Array.prototype.forEach.call(nodes, function (el) {
+    if (el.closest('.lang-toggle')) return;
+    if (isWrapper(el)) return;
+    var k = keyOf(el);
+    if (!k || !Object.prototype.hasOwnProperty.call(T, k)) return;
+    /* 이미 잡힌 요소의 자손/조상이면 건너뛴다 */
+    for (var i = 0; i < seen.length; i++) {
+      if (seen[i].contains(el) || el.contains(seen[i])) return;
+    }
+    seen.push(el);
+    targets.push({ el: el, ko: el.innerHTML, en: T[k] });
+  });
+
+  OVERRIDES.forEach(function (pair) {
+    var el = document.querySelector(pair[0]);
+    if (!el) return;
+    targets.push({ el: el, ko: el.innerHTML, en: pair[1] });
+  });
+
+  function apply(lang) {
+    targets.forEach(function (t) {
+      var html = (lang === 'en') ? t.en : t.ko;
+      if (t.el.innerHTML !== html) t.el.innerHTML = html;
+    });
+    document.documentElement.setAttribute('lang', lang);
+    document.title = META[lang].title;
+    var md = document.querySelector('meta[name="description"]');
+    if (md && META[lang].desc) md.setAttribute('content', META[lang].desc);
+
+    var btn = document.getElementById('langToggle');
+    if (btn) {
+      Array.prototype.forEach.call(btn.querySelectorAll('span'), function (s) {
+        s.classList.toggle('is-on', s.getAttribute('data-lang') === lang);
+      });
+      btn.setAttribute('aria-label', lang === 'en' ? 'Switch to Korean' : '영어로 보기');
+    }
+    try { localStorage.setItem('mxj-lang', lang); } catch (e) {}
+  }
+
+  var current = 'ko';
+  try {
+    var saved = localStorage.getItem('mxj-lang');
+    if (saved === 'en' || saved === 'ko') current = saved;
+    else if ((navigator.language || '').toLowerCase().indexOf('ko') !== 0) current = 'en';
+  } catch (e) {}
+
+  var btn = document.getElementById('langToggle');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      apply(document.documentElement.getAttribute('lang') === 'en' ? 'ko' : 'en');
+    });
+  }
+
+  apply(current);
+})();
+</script>
+<!-- ========== end i18n ========== -->
 </body>
 </html>
