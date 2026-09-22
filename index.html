@@ -709,6 +709,7 @@ footer {
     <li><a href="#products">상품</a></li>
     <li><a href="#video">영상 제작</a></li>
     <li><a href="#community">커뮤니티</a></li>
+    <li><a href="#talentbank" data-en="Talent Bank">인력뱅크</a></li>
     <li><a href="#" class="nav-b2b" data-b2b-open>B2B 거래상담</a></li>
   </ul>
   <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-lang="ko">KO</span><span data-lang="en">EN</span></button>
@@ -1187,6 +1188,61 @@ footer {
   </div>
 </div>
 
+<!-- TALENT BANK -->
+<style>
+.hb-bg { background: var(--bg); }
+/* 소개 문장은 한 줄로 쭉 이어지게 (좁은 화면에서는 자연스럽게 줄바꿈) */
+.hb-bg .sec-body { max-width: none; }
+.hb-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.hb-tag {
+  display: inline-flex; align-items: center;
+  padding: 7px 13px; border-radius: 100px;
+  border: 1px solid var(--line); background: var(--surface-2);
+  font-size: 12.5px; font-weight: 600; color: var(--ink-2); letter-spacing: -.01em;
+}
+.hb-info { list-style: none; margin-top: 22px; display: grid; gap: 9px; }
+.hb-info li { position: relative; padding-left: 15px; font-size: 14.5px; line-height: 1.8; color: var(--ink-2); }
+.hb-info li::before {
+  content: ''; position: absolute; left: 0; top: 10px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent-soft);
+}
+.hb-info b { font-weight: 700; color: var(--ink); }
+.hb-note { margin-top: 18px; font-size: 12.8px; line-height: 1.75; color: var(--ink-3); }
+.hb-mailnote { font-size: 12.5px; line-height: 1.75; color: var(--ink-3); text-align: right; }
+.hb-mailnote a { color: var(--accent); font-weight: 600; border-bottom: 1px solid var(--accent-soft); }
+@media (max-width: 760px) { .hb-mailnote { text-align: left; } }
+</style>
+<div class="hb-bg" id="talentbank">
+  <div class="wrap section-pad">
+    <div class="sec-header">
+      <div class="sec-kicker">Talent Bank</div>
+      <h2 class="sec-title" data-en="MXJ <em>Talent Bank</em>">MXJ <em>인력뱅크</em></h2>
+      <p class="sec-body" data-en="We are recruiting substitute cooks for daycare-centre kitchens. Register once and we will get in touch as soon as a site near you needs someone.">어린이집 대체조리사로 일하실 분을 모집합니다. 한 번 등록해 두시면 가까운 현장에 자리가 생길 때 연락드립니다.</p>
+    </div>
+    <div class="community-card">
+      <div>
+        <div class="hb-tags">
+          <span class="hb-tag" data-en="Daycare substitute cook">어린이집 대체조리사</span>
+          <span class="hb-tag" data-en="Always recruiting">상시 모집</span>
+          <span class="hb-tag" data-en="Apply online">온라인 지원</span>
+        </div>
+        <h3 data-en="Register once, and we call you<br>when a shift opens up">한 번 등록해 두시면<br>자리가 생길 때 연락드립니다</h3>
+        <p data-en="Fill in the form and attach your documents right here — it takes about a minute, and no sign-in is needed.">지원서 작성과 서류 첨부까지 홈페이지에서 바로 끝납니다. 로그인도 필요 없고, 1분이면 됩니다.</p>
+        <ul class="hb-info">
+          <li data-en="<b>Role</b> Substitute cook at daycare centres"><b>담당 업무</b> 어린이집 대체조리사</li>
+          <li data-en="<b>Requirements</b> Food-service experience"><b>자격 요건</b> 외식업 종사자</li>
+          <li data-en="<b>Documents</b> Korean cuisine licence and health certificate, copy of bankbook, family relation certificate, resident registration (full and abstract)"><b>제출 서류</b> 한식 자격증 및 보건증, 통장 사본, 가족관계증명서, 주민등록등본 &middot; 초본</li>
+          <li data-en="<b>How to apply</b> Fill in the form and attach the documents on this page &middot; we reply in order"><b>접수 방법</b> 홈페이지에서 지원서 작성 &middot; 서류 첨부 &middot; 순차 연락</li>
+        </ul>
+        <p class="hb-note" data-en="Photos taken with your phone are fine for the documents. Not ready yet? Leave the application first and send them later.">서류는 휴대폰으로 찍은 사진도 괜찮습니다. 아직 준비되지 않으셨다면 먼저 지원서만 남겨주셔도 됩니다.</p>
+      </div>
+      <div class="community-cta">
+        <a class="btn-fill" href="#" data-hb-open data-en="Apply to the Talent Bank <span class=&quot;arw&quot;>&rarr;</span>">인력뱅크 지원하기 <span class="arw">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- CTA BAND -->
 <div class="cta-band" id="contact">
   <h2>먼저 물어보세요,<br><span class="ser">부담 없이</span></h2>
@@ -1209,6 +1265,7 @@ footer {
       <li><a href="#products">스마트스토어</a></li>
       <li><a href="#video">영상 제작</a></li>
       <li><a href="#community">커뮤니티</a></li>
+      <li><a href="#talentbank" data-en="Talent Bank">인력뱅크</a></li>
       <li><a href="#" data-b2b-open>B2B 거래상담</a></li>
       <li><a href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener">카카오 상담</a></li>
     </ul>
@@ -1990,6 +2047,637 @@ body.b2b-lock { overflow: hidden; }
 })();
 </script>
 <!-- ========== end B2B 거래상담 ========== -->
+
+<!-- ========== 인력뱅크 (대체조리사 모집) ========== -->
+<style>
+.hb-docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.hb-docs li { position: relative; padding-left: 14px; font-size: 12.8px; line-height: 1.8; color: var(--ink-2); }
+.hb-docs li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent-soft);
+}
+.hb-mailcard {
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface-2); padding: 15px 16px;
+}
+.hb-mailcard-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 10px;
+}
+.hb-mailbtn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; margin-top: 13px; padding: 12px 20px;
+  border: 1px solid var(--line); border-radius: 100px;
+  background: var(--surface); color: var(--ink);
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  transition: border-color .22s var(--ease), background .22s var(--ease), color .22s var(--ease);
+}
+.hb-mailbtn:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+/* 서류 첨부 */
+.hb-drop {
+  position: relative; display: block; cursor: pointer;
+  border: 1.5px dashed #CFC8BA; border-radius: var(--radius-sm);
+  background: var(--surface-2); padding: 22px 18px; text-align: center;
+  transition: border-color .22s var(--ease), background .22s var(--ease);
+}
+.hb-drop:hover, .hb-drop.is-over { border-color: var(--accent); background: var(--accent-tint); }
+.hb-drop input { position: absolute; opacity: 0; width: 0; height: 0; }
+.hb-drop-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #fff; box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--accent); margin-bottom: 10px;
+}
+.hb-drop-mark svg { width: 18px; height: 18px; }
+.hb-drop-title { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.hb-drop-sub { margin-top: 5px; font-size: 11.8px; line-height: 1.7; color: var(--ink-3); }
+.hb-files { display: none; margin-top: 11px; }
+.hb-files.is-on { display: grid; gap: 7px; }
+.hb-file {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--line); border-radius: var(--radius-xs);
+  background: #fff; padding: 9px 11px;
+}
+.hb-file-name {
+  flex: 1 1 auto; min-width: 0; font-size: 12.5px; font-weight: 500; color: var(--ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hb-file-size { flex: none; font-size: 11.5px; color: var(--ink-3); }
+.hb-file-del {
+  flex: none; width: 22px; height: 22px; border: 0; border-radius: 50%;
+  background: var(--surface-3); color: var(--ink-2); cursor: pointer;
+  font-family: var(--sans); font-size: 12px; line-height: 1;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+.hb-file-del:hover { background: #C6402F; color: #fff; }
+.hb-total { margin-top: 9px; font-size: 11.5px; color: var(--ink-3); text-align: right; }
+.hb-or {
+  margin-top: 13px; padding-top: 12px; border-top: 1px dashed var(--line);
+  font-size: 11.8px; line-height: 1.75; color: var(--ink-3);
+}
+.hb-or a { color: var(--accent); font-weight: 600; }
+.hb-prog {
+  display: none; margin-top: 12px; height: 5px; border-radius: 4px;
+  background: var(--surface-3); overflow: hidden;
+}
+.hb-prog.is-on { display: block; }
+.hb-prog i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .25s var(--ease); }
+</style>
+
+<div class="b2b-backdrop" id="hbBackdrop" role="dialog" aria-modal="true" aria-labelledby="hbAsideTitle" hidden>
+  <div class="b2b-modal" id="hbModal">
+    <button class="b2b-close" type="button" id="hbClose" aria-label="닫기">&#10005;</button>
+
+    <!-- 왼쪽: 안내 -->
+    <aside class="b2b-aside">
+      <span class="b2b-kicker"><i></i>MXJ Talent Bank</span>
+      <h2 class="b2b-aside-title" id="hbAsideTitle" data-en="Talent<br><em>Bank</em>">대체조리사<br><em>인력뱅크</em></h2>
+      <p class="b2b-aside-desc" data-en="We are recruiting substitute cooks for daycare-centre kitchens.<span>Agree to the terms, fill in the application form, then email your documents — we contact applicants in order.</span>">어린이집 <b>대체조리사</b>로 일하실 분을 모집합니다.<span>동의 후 지원서를 작성하시고, 서류는 메일로 보내주시면 순차적으로 연락드립니다.</span></p>
+      <div class="b2b-points">
+        <div class="b2b-point">
+          <span class="b2b-point-mark">01</span>
+          <span class="b2b-point-text" data-en="<b>Privacy consent</b>Please read and tick the two required items."><b>개인정보 동의</b>필수 2가지 항목을 확인하고 체크해 주세요.</span>
+        </div>
+        <div class="b2b-point">
+          <span class="b2b-point-mark">02</span>
+          <span class="b2b-point-text" data-en="<b>Application form</b>Name / gender / age, address and phone — about a minute."><b>지원서 작성</b>이름·성별·나이, 주소, 전화번호 — 1분이면 끝납니다.</span>
+        </div>
+        <div class="b2b-point">
+          <span class="b2b-point-mark">03</span>
+          <span class="b2b-point-text" data-en="<b>Send documents</b>Attach your licence and certificates to an email — even later is fine."><b>서류 제출</b>자격증·증명서를 메일로 첨부해 주세요. 늦어도 괜찮습니다.</span>
+        </div>
+      </div>
+      <p class="b2b-aside-foot" data-en="Your details are used only for recruitment and dispatch consultation, and are destroyed as soon as that purpose is met.">보내주신 정보는 채용 및 파견 상담 목적으로만 사용되며, 목적 달성 후 즉시 파기됩니다.</p>
+    </aside>
+
+    <!-- 오른쪽 -->
+    <div class="b2b-main">
+      <form id="hbForm" novalidate>
+      <div class="b2b-scroll">
+        <div class="b2b-head">
+          <div class="b2b-head-title" data-en="Apply to the substitute-cook talent bank">대체조리사 인력뱅크에 지원해 주세요</div>
+          <p class="b2b-head-sub" data-en="We are looking for people with <em>food-service experience</em>. Fill in the boxes below and attach your documents — that is all.">외식업 종사 경험이 있으신 분을 모집합니다. <em>아래 칸만 적고 서류를 첨부</em>하시면 끝입니다.</p>
+        </div>
+
+        <!-- 1. 동의 -->
+        <fieldset class="b2b-fieldset">
+          <div class="b2b-legend" data-en="<i>1</i>Privacy consent"><i>1</i>개인정보 동의</div>
+
+          <div class="b2b-consent" data-hb-consent>
+            <div class="b2b-consent-title"><span data-en="Consent to collection and use of personal data">개인정보 수집&middot;이용 동의</span><span class="b2b-req" data-en="Required">필수</span></div>
+            <div class="b2b-consent-body" data-en="<p>&#9632; <b>Items collected</b> Name, gender, age, address, phone, and the documents you submit (licence, health certificate, etc.)</p><p>&#9632; <b>Purpose</b> Substitute-cook recruitment, management of the dispatch talent pool, and contact about work</p><p>&#9632; <b>Retention</b> Until consent is withdrawn, or destroyed immediately once the purpose is met</p><span class='b2b-note'>You have the right to refuse consent; if you refuse, your application may not be accepted.</span>">
+              <p>&#9632; <b>수집 항목</b> 이름, 성별, 나이, 주소, 연락처 및 제출 서류(자격증, 보건증 등)</p>
+              <p>&#9632; <b>수집&middot;이용 목적</b> 대체조리사 채용, 파견 인력 관리, 근무 관련 연락</p>
+              <p>&#9632; <b>보유 기간</b> 동의 철회 시까지 또는 목적 달성 후 즉시 파기</p>
+              <span class="b2b-note">귀하는 동의를 거부할 권리가 있으며, 거부 시 지원 접수가 제한될 수 있습니다.</span>
+            </div>
+            <label class="b2b-check">
+              <input type="checkbox" data-hb-check>
+              <span class="b2b-box" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.4 4.3 9.2 10.5 3" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="b2b-check-text" data-en="I agree.">동의합니다.</span>
+            </label>
+          </div>
+
+          <div class="b2b-consent" data-hb-consent>
+            <div class="b2b-consent-title"><span data-en="Consent to provide personal data to third parties">개인정보 제3자 제공 동의</span><span class="b2b-req" data-en="Required">필수</span></div>
+            <div class="b2b-consent-body" data-en="<p>&#9632; <b>Recipients</b> Workplaces you may be dispatched to (daycare centres, etc.) and MXJ partner companies</p><p>&#9632; <b>Purpose</b> Placement at a workplace and review of your application</p><p>&#9632; <b>Items provided</b> Name, phone, qualifications, submitted documents</p><p>&#9632; <b>Retention</b> Destroyed immediately once the purpose is met</p><span class='b2b-note'>You have the right to refuse; if you refuse, placement at a workplace may not be possible.</span>">
+              <p>&#9632; <b>제공받는 자</b> 파견 근무지(어린이집 등) 및 MXJ 협력사</p>
+              <p>&#9632; <b>제공 목적</b> 근무지 배치 및 채용 검토</p>
+              <p>&#9632; <b>제공 항목</b> 이름, 연락처, 자격 사항, 제출 서류</p>
+              <p>&#9632; <b>보유 기간</b> 제공 목적 달성 후 즉시 파기</p>
+              <span class="b2b-note">귀하는 제3자 제공 동의를 거부할 권리가 있으며, 거부 시 근무지 배치가 어려울 수 있습니다.</span>
+            </div>
+            <label class="b2b-check">
+              <input type="checkbox" data-hb-check>
+              <span class="b2b-box" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.4 4.3 9.2 10.5 3" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="b2b-check-text" data-en="I agree to the third-party provision above.">위 개인정보 제3자 제공에 동의합니다.</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- 2. 지원서 -->
+        <fieldset class="b2b-fieldset">
+          <div class="b2b-legend" data-en="<i>2</i>Your details"><i>2</i>지원서 작성</div>
+          <div class="b2b-grid">
+            <div class="b2b-field">
+              <label class="b2b-label" for="hbName"><span data-en="Name">이름</span><i>*</i></label>
+              <input class="b2b-input" type="text" id="hbName" name="name" placeholder="홍길동" data-en-ph="Your name" autocomplete="name" data-hb-required data-err="이름을 입력해 주세요." data-err-en="Please enter your name.">
+              <span class="b2b-err"></span>
+            </div>
+            <div class="b2b-field">
+              <label class="b2b-label" for="hbAge"><span data-en="Age">나이</span><i>*</i></label>
+              <input class="b2b-input" type="text" id="hbAge" placeholder="45" data-en-ph="45" inputmode="numeric" autocomplete="off" data-hb-required data-err="나이를 입력해 주세요." data-err-en="Please enter your age.">
+              <span class="b2b-err"></span>
+            </div>
+            <div class="b2b-field is-wide">
+              <label class="b2b-label"><span data-en="Gender">성별</span><i>*</i></label>
+              <div class="b2b-types">
+                <label class="b2b-type">
+                  <input type="radio" name="hbGender" value="여">
+                  <span class="b2b-type-face"><i aria-hidden="true"></i><span data-en="Female">여</span></span>
+                </label>
+                <label class="b2b-type">
+                  <input type="radio" name="hbGender" value="남">
+                  <span class="b2b-type-face"><i aria-hidden="true"></i><span data-en="Male">남</span></span>
+                </label>
+              </div>
+              <div class="b2b-err" id="hbGenderErr" data-en="Please choose your gender.">성별을 선택해 주세요.</div>
+            </div>
+            <div class="b2b-field is-wide">
+              <label class="b2b-label" for="hbAddr"><span data-en="Address">주소</span><i>*</i></label>
+              <input class="b2b-input" type="text" id="hbAddr" placeholder="서울시 강남구 ○○동" data-en-ph="Your address" autocomplete="street-address" data-hb-required data-err="주소를 입력해 주세요." data-err-en="Please enter your address.">
+              <span class="b2b-err"></span>
+            </div>
+            <div class="b2b-field is-wide">
+              <label class="b2b-label" for="hbPhone"><span data-en="Phone">전화번호</span><i>*</i></label>
+              <input class="b2b-input" type="tel" id="hbPhone" name="phone" placeholder="010-0000-0000" data-en-ph="010-0000-0000" inputmode="tel" autocomplete="tel" data-hb-required data-err="전화번호를 입력해 주세요." data-err-en="Please enter your phone number.">
+              <span class="b2b-err"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- 3. 서류 첨부 -->
+        <fieldset class="b2b-fieldset">
+          <div class="b2b-legend" data-en="<i>3</i>Attach documents"><i>3</i>서류 첨부</div>
+
+          <div class="hb-mailcard" style="margin-bottom:11px">
+            <div class="hb-mailcard-top"><span data-en="Documents to attach">첨부하실 서류</span><span class="b2b-req" data-en="Photos are fine">사진 가능</span></div>
+            <ul class="hb-docs">
+              <li data-en="Korean cuisine licence &amp; health certificate (copies)">한식 자격증 &middot; 보건증 사본</li>
+              <li data-en="Copy of bankbook">통장 사본</li>
+              <li data-en="Family relation certificate">가족관계증명서</li>
+              <li data-en="Resident registration — full and abstract">주민등록등본 &middot; 초본</li>
+            </ul>
+          </div>
+
+          <label class="hb-drop" id="hbDrop">
+            <input type="file" id="hbFileInput" multiple accept="image/*,.pdf,.jpg,.jpeg,.png,.heic,.gif,.zip,.hwp,.doc,.docx">
+            <span class="hb-drop-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v2.5A2.5 2.5 0 0 0 6.5 20h11A2.5 2.5 0 0 0 20 17.5V15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="hb-drop-title" data-en="Tap here to attach files">여기를 눌러 서류를 첨부하세요</span>
+            <span class="hb-drop-sub" data-en="Photos taken with your phone are fine &middot; several files at once &middot; up to 20MB in total">휴대폰으로 찍은 사진도 괜찮습니다 &middot; 여러 장 한번에 &middot; 전체 20MB까지</span>
+          </label>
+
+          <div class="hb-files" id="hbFiles"></div>
+          <div class="hb-total" id="hbTotal" hidden></div>
+          <div class="hb-prog" id="hbProg"><i id="hbProgBar"></i></div>
+
+          <p class="hb-or" data-en="Not ready yet? Send the application first and email the documents later to <a href='mailto:mijin6@naver.com'>mijin6@naver.com</a> — attaching now is not required.">서류가 아직 준비되지 않으셨다면, 첨부 없이 지원서만 보내셔도 됩니다. 나중에 <a href="mailto:mijin6@naver.com?subject=[MXJ%20인력뱅크]%20대체조리사%20지원%20서류">mijin6@naver.com</a>으로 보내주세요.</p>
+        </fieldset>
+      </div>
+
+      <div class="b2b-foot">
+        <div class="b2b-alert" id="hbAlert"><span id="hbAlertText"></span></div>
+        <button class="b2b-submit" type="submit" id="hbSubmit">
+          <span data-en="Send application">지원서 보내기</span><span class="arw">&rarr;</span>
+          <span class="b2b-spin" aria-hidden="true"></span>
+        </button>
+        <p class="b2b-foot-note" data-en="Your application goes straight to the person in charge &middot; we reply in order">담당자에게 바로 전달됩니다 &middot; 순차적으로 연락드립니다</p>
+      </div>
+      </form>
+
+      <!-- 완료 화면 -->
+      <div class="b2b-done" id="hbDone">
+        <span class="b2b-done-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3.5 12.8 9 18.3 20.5 6.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="b2b-done-title" data-en="Your application has been received">지원서가 접수되었습니다</div>
+        <p class="b2b-done-desc" data-en="We have your details and documents. We will get in touch using the number you left — even if it takes a little time. Thank you.">보내주신 내용과 서류가 잘 접수되었습니다. 기재해주신 번호로 순차적으로 연락드리겠습니다. 감사합니다.</p>
+        <div class="b2b-done-actions">
+          <button class="b2b-btn-fill" type="button" data-hb-close><span data-en="Done">확인</span></button>
+          <a class="b2b-btn-ghost" href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener"><span data-en="Ask us on KakaoTalk">카카오톡으로 문의하기</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ===== 인력뱅크 지원서 : 구글 앱스스크립트로 전송 (서류 파일 첨부 포함) ===== */
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxuNI3-0PFZi31KSUKonnNbj6GRiTnXOW1V3P2RIdKO35Ewl9ZY517vfvcnRXyuzhwD/exec';
+
+  var backdrop  = document.getElementById('hbBackdrop');
+  var modal     = document.getElementById('hbModal');
+  var form      = document.getElementById('hbForm');
+  var submit    = document.getElementById('hbSubmit');
+  var alertBox  = document.getElementById('hbAlert');
+  var alertTxt  = document.getElementById('hbAlertText');
+  var fileIn    = document.getElementById('hbFileInput');
+  var fileBox   = document.getElementById('hbFiles');
+  var totalBox  = document.getElementById('hbTotal');
+  var prog      = document.getElementById('hbProg');
+  var progBar   = document.getElementById('hbProgBar');
+  var drop      = document.getElementById('hbDrop');
+  var genderErr = document.getElementById('hbGenderErr');
+  if (!backdrop || !modal || !form) return;
+
+  var MAX_TOTAL = 20 * 1024 * 1024;   /* 전체 20MB */
+  var checks    = modal.querySelectorAll('[data-hb-check]');
+  var picked    = [];
+  var lastFocus = null;
+  var sending   = false;
+
+  function isEn() { return document.documentElement.getAttribute('lang') === 'en'; }
+  function t(ko, en) { return isEn() ? en : ko; }
+  function hideAlert() { if (alertBox) alertBox.classList.remove('is-on'); }
+  function showAlert(msg) {
+    if (!alertBox) return;
+    if (alertTxt) alertTxt.textContent = msg;
+    alertBox.classList.add('is-on');
+  }
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
+  }
+
+  /* ---------- 동의 카드 ---------- */
+  Array.prototype.forEach.call(checks, function (cb) {
+    cb.addEventListener('change', function () {
+      var card = cb.closest('[data-hb-consent]');
+      if (card) {
+        card.classList.toggle('is-checked', cb.checked);
+        if (cb.checked) card.classList.remove('is-bad');
+      }
+      hideAlert();
+    });
+  });
+
+  /* ---------- 입력 중 오류 해제 ---------- */
+  Array.prototype.forEach.call(form.querySelectorAll('[data-hb-required]'), function (el) {
+    el.addEventListener('input', function () {
+      var f = el.closest('.b2b-field');
+      if (f) f.classList.remove('has-error');
+      hideAlert();
+    });
+  });
+  Array.prototype.forEach.call(form.querySelectorAll('input[name="hbGender"]'), function (rd) {
+    rd.addEventListener('change', function () {
+      if (genderErr) genderErr.classList.remove('is-on');
+      hideAlert();
+    });
+  });
+
+  /* ---------- 서류 첨부 ---------- */
+  function fmtSize(n) {
+    if (n < 1024) return n + 'B';
+    if (n < 1024 * 1024) return Math.round(n / 1024) + 'KB';
+    return (n / 1024 / 1024).toFixed(1) + 'MB';
+  }
+  function totalSize() {
+    var s = 0;
+    for (var i = 0; i < picked.length; i++) s += picked[i].size;
+    return s;
+  }
+  function renderFiles() {
+    if (!fileBox) return;
+    fileBox.innerHTML = '';
+    picked.forEach(function (f, idx) {
+      var row = document.createElement('div');
+      row.className = 'hb-file';
+
+      var nm = document.createElement('span');
+      nm.className = 'hb-file-name';
+      nm.textContent = f.name;
+
+      var sz = document.createElement('span');
+      sz.className = 'hb-file-size';
+      sz.textContent = fmtSize(f.size);
+
+      var del = document.createElement('button');
+      del.className = 'hb-file-del';
+      del.type = 'button';
+      del.innerHTML = '&#10005;';
+      del.setAttribute('aria-label', t('첨부 삭제', 'Remove attachment'));
+      del.addEventListener('click', function () {
+        picked.splice(idx, 1);
+        renderFiles();
+        hideAlert();
+      });
+
+      row.appendChild(nm);
+      row.appendChild(sz);
+      row.appendChild(del);
+      fileBox.appendChild(row);
+    });
+
+    fileBox.classList.toggle('is-on', picked.length > 0);
+    if (totalBox) {
+      totalBox.hidden = picked.length === 0;
+      totalBox.textContent = picked.length
+        ? t('첨부 ' + picked.length + '개 · 전체 ' + fmtSize(totalSize()),
+            picked.length + ' file(s) · ' + fmtSize(totalSize()) + ' total')
+        : '';
+    }
+  }
+  function addFiles(list) {
+    if (!list || !list.length) return;
+    Array.prototype.forEach.call(list, function (f) {
+      for (var i = 0; i < picked.length; i++) {
+        if (picked[i].name === f.name && picked[i].size === f.size) return;
+      }
+      picked.push(f);
+    });
+    if (totalSize() > MAX_TOTAL) {
+      while (picked.length && totalSize() > MAX_TOTAL) picked.pop();
+      showAlert(t('첨부는 전체 20MB까지 가능합니다. 용량이 큰 파일은 메일로 보내주세요.',
+                  'Attachments can total up to 20MB. Please email larger files.'));
+    } else {
+      hideAlert();
+    }
+    renderFiles();
+  }
+  if (fileIn) {
+    fileIn.addEventListener('change', function () {
+      addFiles(fileIn.files);
+      fileIn.value = '';
+    });
+  }
+  if (drop) {
+    ['dragenter', 'dragover'].forEach(function (evName) {
+      drop.addEventListener(evName, function (ev) {
+        ev.preventDefault();
+        drop.classList.add('is-over');
+      });
+    });
+    ['dragleave', 'drop'].forEach(function (evName) {
+      drop.addEventListener(evName, function (ev) {
+        ev.preventDefault();
+        drop.classList.remove('is-over');
+      });
+    });
+    drop.addEventListener('drop', function (ev) {
+      if (ev.dataTransfer && ev.dataTransfer.files) addFiles(ev.dataTransfer.files);
+    });
+  }
+
+  /* ---------- 검사 ---------- */
+  function setErr(el, on) {
+    var f = el.closest('.b2b-field');
+    if (!f) return;
+    f.classList.toggle('has-error', !!on);
+    var slot = f.querySelector('.b2b-err');
+    if (slot && on) {
+      var en = el.getAttribute('data-err-en');
+      slot.textContent = (isEn() && en) ? en : (el.getAttribute('data-err') || '');
+    }
+  }
+
+  function validate() {
+    var bad = null;
+
+    Array.prototype.forEach.call(checks, function (cb) {
+      var card = cb.closest('[data-hb-consent]');
+      if (cb.checked) { if (card) card.classList.remove('is-bad'); return; }
+      if (card) card.classList.add('is-bad');
+      if (!bad) bad = { el: cb, msg: t('필수 동의 항목에 체크해 주세요.', 'Please tick the required consent boxes.') };
+    });
+
+    Array.prototype.forEach.call(form.querySelectorAll('[data-hb-required]'), function (el) {
+      var invalid = !(el.value || '').trim();
+      setErr(el, invalid);
+      if (invalid && !bad) {
+        var en = el.getAttribute('data-err-en');
+        bad = { el: el, msg: (isEn() && en) ? en : (el.getAttribute('data-err') || '') };
+      }
+    });
+
+    if (!form.querySelector('input[name="hbGender"]:checked')) {
+      if (genderErr) genderErr.classList.add('is-on');
+      if (!bad) bad = {
+        el: form.querySelector('input[name="hbGender"]'),
+        msg: t('성별을 선택해 주세요.', 'Please choose your gender.')
+      };
+    } else if (genderErr) {
+      genderErr.classList.remove('is-on');
+    }
+
+    if (bad) {
+      showAlert(bad.msg);
+      if (bad.el) {
+        var box = bad.el.closest('.b2b-consent') || bad.el.closest('.b2b-field') || bad.el.closest('.b2b-fieldset');
+        if (box && box.scrollIntoView) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        try { bad.el.focus({ preventScroll: true }); } catch (e) {}
+      }
+      return false;
+    }
+    hideAlert();
+    return true;
+  }
+
+  /* ---------- 파일을 base64 로 읽기 ---------- */
+  function readOne(file) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        var s = String(fr.result || '');
+        var comma = s.indexOf(',');
+        resolve({
+          name: file.name,
+          mimeType: file.type || 'application/octet-stream',
+          size: file.size,
+          data: comma >= 0 ? s.slice(comma + 1) : ''
+        });
+      };
+      fr.onerror = function () { reject(new Error('read')); };
+      fr.readAsDataURL(file);
+    });
+  }
+  function readAll() {
+    var out = [];
+    var chain = Promise.resolve();
+    picked.forEach(function (f, i) {
+      chain = chain.then(function () {
+        return readOne(f).then(function (r) {
+          out.push(r);
+          if (progBar) progBar.style.width = Math.round(((i + 1) / picked.length) * 65) + '%';
+        });
+      });
+    });
+    return chain.then(function () { return out; });
+  }
+
+  function busy(on) {
+    sending = on;
+    submit.classList.toggle('is-busy', on);
+    submit.disabled = on;
+    if (prog) prog.classList.toggle('is-on', on);
+    if (!on && progBar) progBar.style.width = '0%';
+  }
+
+  function finish() {
+    busy(false);
+    modal.classList.add('is-done');
+    var done = document.getElementById('hbDone');
+    if (done) done.scrollTop = 0;
+    var ok = document.querySelector('#hbDone [data-hb-close]');
+    if (ok) setTimeout(function () { try { ok.focus({ preventScroll: true }); } catch (e) {} }, 240);
+  }
+
+  function failed() {
+    busy(false);
+    showAlert(t('전송에 실패했습니다. 잠시 후 다시 시도하시거나 mijin6@naver.com 으로 보내주세요.',
+                'Sending failed. Please try again shortly, or email mijin6@naver.com.'));
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    if (sending) return;
+    if (!validate()) return;
+
+    if (ENDPOINT.indexOf('PASTE_') === 0) {
+      showAlert(t('지원서 접수 준비 중입니다. mijin6@naver.com 으로 보내주세요.',
+                  'The application channel is being set up. Please email mijin6@naver.com.'));
+      return;
+    }
+
+    busy(true);
+    if (progBar) progBar.style.width = '8%';
+
+    var payload = {
+      kind: 'talent',
+      type: '인력뱅크 지원 (어린이집 대체조리사)',
+      name: val('hbName'),
+      gender: (form.querySelector('input[name="hbGender"]:checked') || {}).value || '',
+      age: val('hbAge'),
+      address: val('hbAddr'),
+      phone: val('hbPhone'),
+      agree1: checks[0] && checks[0].checked ? '동의' : '미동의',
+      agree2: checks[1] && checks[1].checked ? '동의' : '미동의',
+      page: location.href,
+      files: []
+    };
+
+    readAll().then(function (files) {
+      payload.files = files;
+      if (progBar) progBar.style.width = '78%';
+      return fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+    }).then(function (res) {
+      return res.text();
+    }).then(function (body) {
+      if (progBar) progBar.style.width = '100%';
+      if (body && body.indexOf('"ok":true') >= 0) finish();
+      else throw new Error(body || 'bad response');
+    }).catch(function () {
+      failed();
+    });
+  });
+
+  /* ---------- 열기 / 닫기 ---------- */
+  function resetForm() {
+    modal.classList.remove('is-done');
+    form.reset();
+    picked = [];
+    renderFiles();
+    hideAlert();
+    if (genderErr) genderErr.classList.remove('is-on');
+    Array.prototype.forEach.call(form.querySelectorAll('[data-hb-consent]'), function (c) {
+      c.classList.remove('is-checked', 'is-bad');
+    });
+    Array.prototype.forEach.call(form.querySelectorAll('.b2b-field'), function (f) {
+      f.classList.remove('has-error');
+    });
+    busy(false);
+  }
+
+  function openModal(ev) {
+    if (ev) ev.preventDefault();
+    lastFocus = document.activeElement;
+    if (modal.classList.contains('is-done')) resetForm();
+    backdrop.hidden = false;
+    requestAnimationFrame(function () {
+      backdrop.classList.add('is-open');
+      document.body.classList.add('b2b-lock');
+    });
+    setTimeout(function () {
+      var first = modal.querySelector('.b2b-check input');
+      if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+    }, 320);
+  }
+
+  function closeModal() {
+    if (sending) return;
+    backdrop.classList.remove('is-open');
+    document.body.classList.remove('b2b-lock');
+    setTimeout(function () {
+      if (!backdrop.classList.contains('is-open')) backdrop.hidden = true;
+    }, 420);
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!ev.target || !ev.target.closest) return;
+    if (ev.target.closest('[data-hb-open]')) { openModal(ev); return; }
+    if (ev.target.closest('#hbClose, [data-hb-close]')) { ev.preventDefault(); closeModal(); }
+  });
+
+  backdrop.addEventListener('mousedown', function (ev) { if (ev.target === backdrop) closeModal(); });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' || ev.keyCode === 27) {
+      if (backdrop.classList.contains('is-open')) closeModal();
+    }
+  });
+
+  /* 모달 안에서만 탭 이동 */
+  backdrop.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Tab' && ev.keyCode !== 9) return;
+    var all = modal.querySelectorAll('a[href], button:not(:disabled), input:not([type="hidden"])');
+    var list = Array.prototype.filter.call(all, function (el) {
+      return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement;
+    });
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+    else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+  });
+
+  renderFiles();
+})();
+</script>
+<!-- ========== end 인력뱅크 ========== -->
 
 <!-- ============ i18n : KO / EN language switch ============ -->
 <style>
