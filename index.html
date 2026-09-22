@@ -709,6 +709,7 @@ footer {
     <li><a href="#products">상품</a></li>
     <li><a href="#video">영상 제작</a></li>
     <li><a href="#community">커뮤니티</a></li>
+    <li><a href="#" class="nav-b2b" data-b2b-open>B2B 거래상담</a></li>
   </ul>
   <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-lang="ko">KO</span><span data-lang="en">EN</span></button>
   <a class="nav-cta" href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener">
@@ -1208,6 +1209,7 @@ footer {
       <li><a href="#products">스마트스토어</a></li>
       <li><a href="#video">영상 제작</a></li>
       <li><a href="#community">커뮤니티</a></li>
+      <li><a href="#" data-b2b-open>B2B 거래상담</a></li>
       <li><a href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener">카카오 상담</a></li>
     </ul>
   </div>
@@ -1254,6 +1256,741 @@ footer {
 })();
 </script>
 
+<!-- ============ B2B 거래상담 (Connect) 모달 ============ -->
+<style>
+/* ---------- 네비 트리거 ---------- */
+.nav-links a.nav-b2b {
+  display: inline-flex; align-items: center; gap: 7px;
+  color: var(--accent-2); font-weight: 600;
+  background: var(--accent-tint);
+  box-shadow: inset 0 0 0 1px var(--accent-soft);
+}
+.nav-links a.nav-b2b::after { display: none; }
+.nav-links a.nav-b2b::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; opacity: .5; flex: none;
+}
+.nav-links a.nav-b2b:hover {
+  color: #fff; background: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 6px 16px rgba(192, 86, 28, .22);
+}
+.nav-links a.nav-b2b:hover::before { opacity: .85; }
+
+/* ---------- 배경 오버레이 ---------- */
+.b2b-backdrop {
+  position: fixed; inset: 0; z-index: 900;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(10px, 3vw, 40px);
+  background: rgba(21, 18, 14, .52);
+  -webkit-backdrop-filter: blur(10px) saturate(130%);
+  backdrop-filter: blur(10px) saturate(130%);
+  opacity: 0; visibility: hidden;
+  transition: opacity .38s var(--ease), visibility .38s var(--ease);
+}
+.b2b-backdrop.is-open { opacity: 1; visibility: visible; }
+.b2b-backdrop[hidden] { display: none; }
+body.b2b-lock { overflow: hidden; }
+
+/* ---------- 모달 셸 ---------- */
+.b2b-modal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 322px minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  width: min(1000px, 100%);
+  height: min(860px, 94vh); max-height: 94vh;
+  word-break: keep-all;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-3);
+  opacity: 0; transform: translateY(26px) scale(.985);
+  transition: opacity .42s var(--ease), transform .42s var(--ease);
+}
+.b2b-backdrop.is-open .b2b-modal { opacity: 1; transform: none; }
+
+.b2b-close {
+  position: absolute; top: 14px; right: 14px; z-index: 6;
+  width: 36px; height: 36px; border: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: var(--shadow-1);
+  color: var(--ink-2); cursor: pointer;
+  font-family: var(--sans); font-size: 16px; line-height: 1;
+  transition: background .22s var(--ease), color .22s var(--ease), transform .22s var(--ease);
+}
+.b2b-close:hover { background: var(--ink); color: #fff; transform: rotate(90deg); }
+
+/* ---------- 왼쪽 안내 패널 ---------- */
+.b2b-aside {
+  position: relative; min-height: 0;
+  padding: 40px 32px 34px;
+  background: var(--ink); color: #fff;
+  display: flex; flex-direction: column; gap: 22px;
+  overflow: hidden;
+}
+.b2b-aside::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: var(--grain); opacity: .05; pointer-events: none;
+}
+.b2b-aside::after {
+  content: ''; position: absolute;
+  width: 380px; height: 380px; right: -180px; top: -140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192, 86, 28, .55), transparent 68%);
+  pointer-events: none;
+}
+.b2b-aside > * { position: relative; z-index: 2; }
+.b2b-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  align-self: flex-start;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--accent-soft);
+}
+.b2b-kicker i {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent-soft); font-style: normal; flex: none;
+}
+.b2b-aside-title {
+  font-family: var(--serif); font-weight: 800;
+  font-size: clamp(32px, 3.6vw, 42px); line-height: 1.06;
+  letter-spacing: -.01em;
+}
+.b2b-aside-title em { font-style: italic; color: var(--accent-soft); }
+.b2b-aside-desc {
+  font-size: 14px; line-height: 1.7; color: rgba(255, 255, 255, .88);
+  letter-spacing: -.01em;
+}
+.b2b-aside-desc b { font-weight: 600; color: #fff; }
+.b2b-aside-desc span {
+  display: block; margin-top: 12px;
+  font-size: 12.8px; line-height: 1.8; color: rgba(255, 255, 255, .58);
+}
+.b2b-points { display: flex; flex-direction: column; gap: 14px; margin-top: auto; }
+.b2b-point { display: flex; gap: 11px; align-items: flex-start; }
+.b2b-point-mark {
+  flex: none; width: 21px; height: 21px; border-radius: 50%; margin-top: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(232, 198, 170, .16);
+  box-shadow: inset 0 0 0 1px rgba(232, 198, 170, .32);
+  color: var(--accent-soft); font-size: 10px; font-weight: 700;
+}
+.b2b-point-text { font-size: 12.5px; line-height: 1.6; color: rgba(255, 255, 255, .78); }
+.b2b-point-text b { display: block; color: #fff; font-weight: 600; font-size: 13px; }
+.b2b-aside-foot {
+  padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .12);
+  font-size: 11.5px; line-height: 1.7; color: rgba(255, 255, 255, .45);
+}
+
+/* ---------- 오른쪽 폼 ---------- */
+.b2b-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; }
+.b2b-main > form { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+.b2b-scroll {
+  flex: 1 1 auto; min-height: 0;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 42px clamp(24px, 3.4vw, 44px) 20px;
+}
+.b2b-scroll::-webkit-scrollbar { width: 9px; }
+.b2b-scroll::-webkit-scrollbar-track { background: transparent; }
+.b2b-scroll::-webkit-scrollbar-thumb { background: #D5CEC1; border-radius: 10px; border: 3px solid var(--surface); }
+.b2b-scroll::-webkit-scrollbar-thumb:hover { background: var(--accent-soft); }
+
+.b2b-head { margin-bottom: 26px; }
+.b2b-head-title {
+  font-size: 21px; font-weight: 700; letter-spacing: -.015em;
+  line-height: 1.35; color: var(--ink);
+}
+.b2b-head-sub { margin-top: 7px; font-size: 13px; line-height: 1.75; color: var(--ink-3); }
+.b2b-head-sub em { font-style: normal; color: var(--accent); font-weight: 700; }
+
+.b2b-fieldset { border: 0; margin: 0 0 24px; padding: 0; min-width: 0; }
+.b2b-legend {
+  display: flex; align-items: center; gap: 9px;
+  margin-bottom: 13px;
+  font-size: 11px; font-weight: 700; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.b2b-legend::after { content: ''; flex: 1 1 auto; height: 1px; background: var(--line-2); }
+.b2b-legend i {
+  flex: none; width: 19px; height: 19px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--surface-3); color: var(--ink-2);
+  font-size: 10px; font-style: normal; letter-spacing: 0;
+}
+
+/* 동의 카드 */
+.b2b-consent {
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  padding: 15px 16px; margin-bottom: 11px;
+  transition: border-color .25s var(--ease), background .25s var(--ease);
+}
+.b2b-consent.is-checked { border-color: var(--accent-soft); background: var(--accent-tint); }
+.b2b-consent.is-bad { border-color: #C6402F; }
+.b2b-consent-title {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.b2b-req {
+  flex: none; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  color: var(--accent); background: #fff;
+  border: 1px solid var(--accent-soft); border-radius: 100px;
+  padding: 2px 8px;
+}
+.b2b-consent-body { margin-top: 9px; font-size: 11.8px; line-height: 1.85; color: var(--ink-2); }
+.b2b-consent-body p { margin-bottom: 1px; }
+.b2b-consent-body b { font-weight: 600; color: var(--ink); }
+.b2b-consent-body .b2b-note { display: block; margin-top: 6px; color: var(--ink-3); }
+
+/* 체크박스 */
+.b2b-check {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 12px; padding-top: 11px;
+  border-top: 1px dashed var(--line);
+  cursor: pointer; user-select: none;
+}
+.b2b-check input { position: absolute; opacity: 0; width: 0; height: 0; }
+.b2b-box {
+  flex: none; width: 19px; height: 19px; border-radius: 6px;
+  border: 1.5px solid #CFC8BA; background: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background .2s var(--ease), border-color .2s var(--ease);
+}
+.b2b-box svg {
+  width: 11px; height: 11px; opacity: 0; transform: scale(.5);
+  transition: opacity .18s var(--ease), transform .18s var(--ease);
+}
+.b2b-check input:checked + .b2b-box { background: var(--accent); border-color: var(--accent); }
+.b2b-check input:checked + .b2b-box svg { opacity: 1; transform: none; }
+.b2b-check input:focus-visible + .b2b-box { box-shadow: 0 0 0 3px rgba(192, 86, 28, .22); }
+.b2b-check-text { font-size: 12.8px; font-weight: 500; color: var(--ink); }
+
+/* 신청 유형 */
+.b2b-types { display: flex; flex-wrap: wrap; gap: 8px; }
+.b2b-type { position: relative; }
+.b2b-type input { position: absolute; opacity: 0; width: 0; height: 0; }
+.b2b-type-face {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 17px; border-radius: 100px;
+  border: 1px solid var(--line); background: var(--surface);
+  font-size: 13px; font-weight: 500; color: var(--ink-2);
+  cursor: pointer; white-space: nowrap;
+  transition: border-color .22s var(--ease), background .22s var(--ease), color .22s var(--ease), box-shadow .22s var(--ease);
+}
+.b2b-type-face i {
+  width: 13px; height: 13px; border-radius: 50%; flex: none;
+  border: 1.5px solid #CFC8BA; background: #fff;
+  transition: border-color .22s var(--ease), border-width .22s var(--ease);
+}
+.b2b-type-face:hover { border-color: var(--ink-3); }
+.b2b-type input:checked + .b2b-type-face { background: var(--ink); border-color: var(--ink); color: #fff; }
+.b2b-type input:checked + .b2b-type-face i { border-color: var(--accent-soft); border-width: 4px; background: var(--ink); }
+.b2b-type input:focus-visible + .b2b-type-face { box-shadow: 0 0 0 3px rgba(21, 18, 14, .16); }
+
+.b2b-other {
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .34s var(--ease), opacity .28s var(--ease), margin-top .34s var(--ease);
+}
+.b2b-other.is-on { max-height: 84px; opacity: 1; margin-top: 10px; }
+
+/* 입력 */
+.b2b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+.b2b-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.b2b-field.is-wide { grid-column: 1 / -1; }
+.b2b-label {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; color: var(--ink-2); letter-spacing: -.005em;
+}
+.b2b-label i { font-style: normal; color: var(--accent); font-size: 13px; line-height: 1; }
+.b2b-input, .b2b-textarea {
+  width: 100%; font-family: var(--sans);
+  font-size: 13.5px; font-weight: 400; color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius-xs);
+  padding: 11px 13px; line-height: 1.6;
+  transition: border-color .22s var(--ease), box-shadow .22s var(--ease);
+  -webkit-appearance: none; appearance: none;
+}
+.b2b-textarea { resize: vertical; min-height: 92px; }
+.b2b-input::placeholder, .b2b-textarea::placeholder { color: #B5AEA2; }
+.b2b-input:hover, .b2b-textarea:hover { border-color: #D6CFC2; }
+.b2b-input:focus, .b2b-textarea:focus {
+  outline: 0; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(192, 86, 28, .13);
+}
+.b2b-field.has-error .b2b-input, .b2b-field.has-error .b2b-textarea { border-color: #C6402F; }
+.b2b-field.has-error .b2b-input:focus { box-shadow: 0 0 0 3px rgba(198, 64, 47, .14); }
+.b2b-err { font-size: 11.5px; color: #C6402F; display: none; }
+.b2b-field.has-error .b2b-err { display: block; }
+.b2b-err.is-on { display: block; margin-top: 8px; }
+
+/* 하단 액션 */
+.b2b-foot {
+  flex: none;
+  padding: 16px clamp(24px, 3.4vw, 44px) 22px;
+  border-top: 1px solid var(--line-2);
+  background: var(--bg);
+}
+.b2b-alert {
+  display: none; align-items: center; gap: 8px;
+  margin-bottom: 11px; padding: 10px 13px;
+  border-radius: var(--radius-xs);
+  background: #FCEEEB; border: 1px solid #F0CFC8;
+  font-size: 12.3px; color: #9C3021; line-height: 1.55;
+}
+.b2b-alert.is-on { display: flex; }
+.b2b-submit {
+  position: relative; width: 100%;
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  border: 0; border-radius: 100px; cursor: pointer;
+  padding: 15px 24px;
+  background: var(--ink); color: #fff;
+  font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: -.005em;
+  transition: background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.b2b-submit .arw { transition: transform .3s var(--ease); }
+.b2b-submit:hover { background: var(--accent); transform: translateY(-1px); box-shadow: 0 10px 26px rgba(192, 86, 28, .3); }
+.b2b-submit:hover .arw { transform: translateX(4px); }
+.b2b-submit:disabled { cursor: default; transform: none; box-shadow: none; }
+.b2b-submit.is-busy { color: transparent; }
+.b2b-submit.is-busy .arw { opacity: 0; }
+.b2b-spin {
+  display: none; position: absolute; left: 50%; top: 50%;
+  width: 17px; height: 17px; margin: -8.5px 0 0 -8.5px;
+  border: 2px solid rgba(255, 255, 255, .32);
+  border-top-color: #fff; border-radius: 50%;
+  animation: b2bspin .68s linear infinite;
+}
+.b2b-submit.is-busy .b2b-spin { display: block; }
+@keyframes b2bspin { to { transform: rotate(360deg); } }
+.b2b-foot-note { margin-top: 10px; text-align: center; font-size: 11.3px; color: var(--ink-3); line-height: 1.6; }
+
+/* 완료 화면 */
+.b2b-done {
+  display: none;
+  padding: 54px clamp(24px, 3.4vw, 44px) 52px;
+  text-align: center;
+  flex-direction: column; align-items: center; justify-content: center;
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+}
+.b2b-modal.is-done .b2b-main > form { display: none; }
+.b2b-modal.is-done .b2b-done { display: flex; }
+.b2b-done-mark {
+  width: 62px; height: 62px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--accent-tint);
+  box-shadow: inset 0 0 0 1px var(--accent-soft);
+  color: var(--accent); margin-bottom: 20px;
+  animation: b2bpop .5s var(--ease) both;
+}
+.b2b-done-mark svg { width: 25px; height: 25px; }
+@keyframes b2bpop { from { opacity: 0; transform: scale(.72); } to { opacity: 1; transform: none; } }
+.b2b-done-title {
+  font-family: var(--serif); font-weight: 800;
+  font-size: 27px; letter-spacing: -.01em; color: var(--ink); line-height: 1.25;
+}
+.b2b-done-desc { margin-top: 11px; font-size: 13.5px; line-height: 1.85; color: var(--ink-2); max-width: 410px; }
+.b2b-done-actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.b2b-done-actions .b2b-btn-fill, .b2b-done-actions .b2b-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 100px;
+  font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--sans);
+  transition: background .24s var(--ease), color .24s var(--ease), border-color .24s var(--ease), transform .24s var(--ease);
+}
+.b2b-done-actions .b2b-btn-fill { background: var(--ink); color: #fff; border: 0; }
+.b2b-done-actions .b2b-btn-fill:hover { background: var(--accent); transform: translateY(-1px); }
+.b2b-done-actions .b2b-btn-ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
+.b2b-done-actions .b2b-btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---------- 반응형 ---------- */
+@media (max-width: 900px) {
+  .b2b-modal { grid-template-columns: 1fr; max-height: 94vh; }
+  .b2b-aside { padding: 30px 26px 26px; gap: 14px; }
+  .b2b-aside-title { font-size: 29px; }
+  .b2b-points, .b2b-aside-foot { display: none; }
+  .b2b-aside::after { width: 240px; height: 240px; right: -120px; top: -110px; }
+  .b2b-scroll { padding: 28px 24px 16px; }
+}
+@media (max-width: 560px) {
+  .b2b-backdrop { padding: 0; }
+  .b2b-modal { border-radius: 0; width: 100%; max-height: 100%; height: 100%; }
+  .b2b-grid { grid-template-columns: 1fr; }
+  .b2b-head-title { font-size: 19px; }
+  .b2b-done { padding: 40px 22px; }
+  .b2b-done-title { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .b2b-modal, .b2b-backdrop, .b2b-done-mark { transition-duration: .001ms !important; animation: none !important; }
+}
+</style>
+
+<div class="b2b-backdrop" id="b2bBackdrop" role="dialog" aria-modal="true" aria-labelledby="b2bAsideTitle" hidden>
+  <div class="b2b-modal" id="b2bModal">
+    <button class="b2b-close" type="button" id="b2bClose" aria-label="닫기">&#10005;</button>
+
+    <!-- 왼쪽: 안내 -->
+    <aside class="b2b-aside">
+      <span class="b2b-kicker"><i></i>MXJ Connect</span>
+      <h2 class="b2b-aside-title" id="b2bAsideTitle" data-en="B2B<br><em>Inquiry</em>">B2B<br><em>거래상담</em></h2>
+      <p class="b2b-aside-desc" data-en="Looking to advertise with MXJ, or to partner with us?<br>Just fill in the form.<span>We review every message and reach out in order when the direction is a good fit.</span>">MXJ와의 <b>광고문의</b> 또는 <b>제휴</b>를 원하시면<br>양식을 작성해 주세요.<span>내용을 검토한 뒤, 방향성이 맞는 경우 순차적으로 연락드리고 있습니다.</span></p>
+      <div class="b2b-points">
+        <div class="b2b-point">
+          <span class="b2b-point-mark">01</span>
+          <span class="b2b-point-text" data-en="<b>Send the form</b>Your message goes straight to the person in charge."><b>양식 접수</b>보내주신 내용이 담당자에게 바로 전달됩니다.</span>
+        </div>
+        <div class="b2b-point">
+          <span class="b2b-point-mark">02</span>
+          <span class="b2b-point-text" data-en="<b>We review it</b>We look at the fit with our direction and how we could work together."><b>내용 검토</b>사업 방향성과 협업 가능성을 함께 살펴봅니다.</span>
+        </div>
+        <div class="b2b-point">
+          <span class="b2b-point-mark">03</span>
+          <span class="b2b-point-text" data-en="<b>We get in touch</b>If the direction matches, we contact you with the details you left."><b>순차 연락</b>방향이 맞는 경우 기재해주신 연락처로 안내드립니다.</span>
+        </div>
+      </div>
+      <p class="b2b-aside-foot" data-en="Your details are used only for partnership consultation and are destroyed as soon as that purpose is met.">보내주신 정보는 제휴 상담 목적으로만 사용되며, 목적 달성 후 즉시 파기됩니다.</p>
+    </aside>
+
+    <!-- 오른쪽: 폼 -->
+    <div class="b2b-main">
+      <form id="b2bForm" action="https://script.google.com/macros/s/AKfycbxqoiA1jnNSNVhr7vWzWJR3rwVLAaIqdE6fWPWqPMTdogWZ6RTXuDw1NsRcsO-wXB13/exec" method="POST" target="b2bSink" accept-charset="UTF-8" novalidate>
+        <div class="b2b-scroll">
+          <div class="b2b-head">
+            <div class="b2b-head-title" data-en="Tell us about your partnership or ad inquiry">제휴 &middot; 광고 문의를 남겨주세요</div>
+            <p class="b2b-head-sub" data-en="Only the fields marked <em>*</em> are required — it takes about a minute.">표시된 항목 <em>*</em> 만 필수이며, 1분 안에 작성하실 수 있습니다.</p>
+          </div>
+
+          <!-- 1. 동의 -->
+          <fieldset class="b2b-fieldset">
+            <div class="b2b-legend" data-en="<i>1</i>Privacy consent"><i>1</i>개인정보 동의</div>
+
+            <div class="b2b-consent" data-consent>
+              <div class="b2b-consent-title"><span data-en="Consent to collection and use of personal data">개인정보 수집&middot;이용 동의</span><span class="b2b-req" data-en="Required">필수</span></div>
+              <div class="b2b-consent-body" data-en="<p>&#9632; <b>Items collected</b> Name, phone, email, company / organization</p><p>&#9632; <b>Purpose</b> Partnership consultation, contact and service guidance</p><p>&#9632; <b>Retention</b> Until consent is withdrawn, or destroyed immediately once the purpose is met</p><span class='b2b-note'>You have the right to refuse consent; if you refuse, your inquiry may not be accepted.</span>">
+                <p>&#9632; <b>수집 항목</b> 이름, 연락처, 이메일, 소속/업체명</p>
+                <p>&#9632; <b>수집&middot;이용 목적</b> 제휴 상담 및 연락, 서비스 안내</p>
+                <p>&#9632; <b>보유 기간</b> 동의 철회 시까지 또는 목적 달성 후 즉시 파기</p>
+                <span class="b2b-note">귀하는 동의를 거부할 권리가 있으며, 거부 시 신청 접수가 제한될 수 있습니다.</span>
+              </div>
+              <label class="b2b-check">
+                <input type="checkbox" name="agree1" value="동의합니다." data-required-check>
+                <span class="b2b-box" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.4 4.3 9.2 10.5 3" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="b2b-check-text" data-en="I agree.">동의합니다.</span>
+              </label>
+            </div>
+
+            <div class="b2b-consent" data-consent>
+              <div class="b2b-consent-title"><span data-en="Consent to provide personal data to third parties">개인정보 제3자 제공 동의</span><span class="b2b-req" data-en="Required">필수</span></div>
+              <div class="b2b-consent-body" data-en="<p>&#9632; <b>Recipients</b> MXJ partner companies</p><p>&#9632; <b>Purpose</b> Partnership matching and linked service proposals</p><p>&#9632; <b>Items provided</b> Name, phone, company name</p><p>&#9632; <b>Retention</b> Destroyed immediately once the purpose is met</p><span class='b2b-note'>You have the right to refuse; if you refuse, partner-linked services may be limited.</span>">
+                <p>&#9632; <b>제공받는 자</b> MXJ 협력사 일체</p>
+                <p>&#9632; <b>제공 목적</b> 제휴 연결 및 서비스 연계 제안</p>
+                <p>&#9632; <b>제공 항목</b> 이름, 연락처, 업체명</p>
+                <p>&#9632; <b>보유 기간</b> 제공 목적 달성 후 즉시 파기</p>
+                <span class="b2b-note">귀하는 제3자 제공 동의를 거부할 권리가 있으며, 거부 시 협력사 연계 서비스 제공이 제한될 수 있습니다.</span>
+              </div>
+              <label class="b2b-check">
+                <input type="checkbox" name="agree2" value="위 개인정보 제3자 제공에 동의합니다." data-required-check>
+                <span class="b2b-box" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="M1.5 6.4 4.3 9.2 10.5 3" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="b2b-check-text" data-en="I agree to the third-party provision above.">위 개인정보 제3자 제공에 동의합니다.</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 2. 신청 유형 -->
+          <fieldset class="b2b-fieldset">
+            <div class="b2b-legend" data-en="<i>2</i>Inquiry type"><i>2</i>신청 유형</div>
+            <div class="b2b-types">
+              <label class="b2b-type">
+                <input type="radio" name="type" value="제휴 신청" data-required-radio>
+                <span class="b2b-type-face"><i aria-hidden="true"></i><span data-en="Partnership">제휴 신청</span></span>
+              </label>
+              <label class="b2b-type">
+                <input type="radio" name="type" value="광고문의" data-required-radio>
+                <span class="b2b-type-face"><i aria-hidden="true"></i><span data-en="Advertising">광고문의</span></span>
+              </label>
+              <label class="b2b-type">
+                <input type="radio" name="type" value="기타" id="b2bTypeOther" data-required-radio>
+                <span class="b2b-type-face"><i aria-hidden="true"></i><span data-en="Other">기타</span></span>
+              </label>
+            </div>
+            <div class="b2b-other" id="b2bOtherWrap">
+              <input class="b2b-input" type="text" name="typeOther" id="b2bOtherText" placeholder="어떤 유형인지 적어주세요" data-en-ph="Tell us what kind of inquiry it is" autocomplete="off">
+            </div>
+            <div class="b2b-err" id="b2bTypeErr" data-en="Please choose an inquiry type.">신청 유형을 선택해 주세요.</div>
+          </fieldset>
+
+          <!-- 3. 연락처 정보 -->
+          <fieldset class="b2b-fieldset">
+            <div class="b2b-legend" data-en="<i>3</i>Contact details"><i>3</i>연락처 정보</div>
+            <div class="b2b-grid">
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bName"><span data-en="Name">이름</span><i>*</i></label>
+                <input class="b2b-input" type="text" id="b2bName" name="name" placeholder="홍길동" data-en-ph="Your name" autocomplete="name" data-required data-err="이름을 입력해 주세요." data-err-en="Please enter your name.">
+                <span class="b2b-err"></span>
+              </div>
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bCompany"><span data-en="Company / organization">소속 / 업체명</span></label>
+                <input class="b2b-input" type="text" id="b2bCompany" name="company" placeholder="(주)엠엑스제이" data-en-ph="MXJ Co., Ltd." autocomplete="organization">
+              </div>
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bEmail"><span data-en="Email">이메일</span><i>*</i></label>
+                <input class="b2b-input" type="email" id="b2bEmail" name="email" placeholder="name@company.com" autocomplete="email" data-required data-email data-err="이메일을 정확히 입력해 주세요." data-err-en="Please enter a valid email address.">
+                <span class="b2b-err"></span>
+              </div>
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bPhone"><span data-en="Phone">연락처</span><i>*</i></label>
+                <input class="b2b-input" type="tel" id="b2bPhone" name="phone" placeholder="010-0000-0000" autocomplete="tel" inputmode="tel" data-required data-err="연락처를 입력해 주세요." data-err-en="Please enter a phone number.">
+                <span class="b2b-err"></span>
+              </div>
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bRole"><span data-en="Title / role">직책 / 역할</span></label>
+                <input class="b2b-input" type="text" id="b2bRole" name="role" placeholder="마케팅 팀장" data-en-ph="Marketing lead" autocomplete="organization-title">
+              </div>
+              <div class="b2b-field">
+                <label class="b2b-label" for="b2bSource"><span data-en="How you found us">방문 경로</span></label>
+                <input class="b2b-input" type="text" id="b2bSource" name="source" placeholder="인스타그램, 지인 소개 등" data-en-ph="Instagram, referral, etc." autocomplete="off">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 4. 문의 내용 -->
+          <fieldset class="b2b-fieldset">
+            <div class="b2b-legend" data-en="<i>4</i>Your message"><i>4</i>문의 내용</div>
+            <div class="b2b-grid">
+              <div class="b2b-field is-wide">
+                <label class="b2b-label" for="b2bMsg"><span data-en="Please write your inquiry freely.">신청 문의 내용을 자유롭게 작성해 주세요.</span></label>
+                <textarea class="b2b-textarea" id="b2bMsg" name="message" placeholder="제안하시려는 내용, 예상 일정, 예산 범위 등을 적어주시면 검토가 빨라집니다." data-en-ph="Your proposal, expected timeline, budget range — the more detail, the faster we can review."></textarea>
+              </div>
+              <div class="b2b-field is-wide">
+                <label class="b2b-label" for="b2bLinks"><span data-en="Share any reference links">참고할 링크가 있다면 공유해 주세요</span></label>
+                <textarea class="b2b-textarea" id="b2bLinks" name="links" placeholder="회사 소개서, 홈페이지, 포트폴리오 주소 등" data-en-ph="Company deck, website, portfolio URL, etc." style="min-height:74px"></textarea>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="b2b-foot">
+          <div class="b2b-alert" id="b2bAlert"><span id="b2bAlertText"></span></div>
+          <button class="b2b-submit" type="submit" id="b2bSubmit">
+            <span data-en="Send inquiry">신청서 보내기</span><span class="arw">&rarr;</span>
+            <span class="b2b-spin" aria-hidden="true"></span>
+          </button>
+          <p class="b2b-foot-note" data-en="No sales calls &middot; we review and reach out in order">영업 전화는 드리지 않습니다 &middot; 검토 후 순차적으로 연락드립니다</p>
+        </div>
+
+      </form>
+
+      <!-- 완료 화면 -->
+      <div class="b2b-done" id="b2bDone">
+        <span class="b2b-done-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M3.5 12.8 9 18.3 20.5 6.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="b2b-done-title" data-en="Your inquiry has been received">신청이 접수되었습니다</div>
+        <p class="b2b-done-desc" data-en="We will review what you sent carefully and, if the direction is a good fit, get in touch using the details you provided. Thank you.">보내주신 내용을 꼼꼼히 검토한 뒤, 방향성이 맞는 경우 기재해주신 연락처로 순차적으로 연락드리겠습니다. 감사합니다.</p>
+        <div class="b2b-done-actions">
+          <button class="b2b-btn-fill" type="button" data-b2b-close><span data-en="Done">확인</span></button>
+          <a class="b2b-btn-ghost" href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener"><span data-en="Ask us on KakaoTalk">카카오톡으로 문의하기</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<iframe name="b2bSink" id="b2bSink" title="form target" style="display:none;width:0;height:0;border:0" tabindex="-1" aria-hidden="true"></iframe>
+
+<script>
+(function () {
+  var backdrop = document.getElementById('b2bBackdrop');
+  var modal    = document.getElementById('b2bModal');
+  var form     = document.getElementById('b2bForm');
+  var sink     = document.getElementById('b2bSink');
+  var submit   = document.getElementById('b2bSubmit');
+  var alertBox = document.getElementById('b2bAlert');
+  var alertTxt = document.getElementById('b2bAlertText');
+  var typeErr  = document.getElementById('b2bTypeErr');
+  var otherRd  = document.getElementById('b2bTypeOther');
+  var otherWrp = document.getElementById('b2bOtherWrap');
+  var otherTxt = document.getElementById('b2bOtherText');
+  if (!backdrop || !form) return;
+
+  var lastFocus = null;
+  var sent = false;
+  var doneTimer = null;
+
+  function isEn() { return document.documentElement.getAttribute('lang') === 'en'; }
+
+  /* ---------- 열기 / 닫기 ---------- */
+  function openModal(ev) {
+    if (ev) ev.preventDefault();
+    lastFocus = document.activeElement;
+    backdrop.hidden = false;
+    /* 트랜지션이 적용되도록 한 프레임 뒤에 클래스를 준다 */
+    requestAnimationFrame(function () {
+      backdrop.classList.add('is-open');
+      document.body.classList.add('b2b-lock');
+    });
+    setTimeout(function () {
+      var first = modal.querySelector('.b2b-check input');
+      if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+    }, 320);
+  }
+
+  function closeModal() {
+    backdrop.classList.remove('is-open');
+    document.body.classList.remove('b2b-lock');
+    setTimeout(function () {
+      if (!backdrop.classList.contains('is-open')) backdrop.hidden = true;
+    }, 420);
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!ev.target || !ev.target.closest) return;
+    if (ev.target.closest('[data-b2b-open]')) { openModal(ev); return; }
+    if (ev.target.closest('#b2bClose, [data-b2b-close]')) { ev.preventDefault(); closeModal(); }
+  });
+
+  backdrop.addEventListener('mousedown', function (ev) { if (ev.target === backdrop) closeModal(); });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' || ev.keyCode === 27) {
+      if (backdrop.classList.contains('is-open')) closeModal();
+    }
+  });
+
+  /* 모달 안에서만 탭 이동 */
+  backdrop.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Tab' && ev.keyCode !== 9) return;
+    var all = modal.querySelectorAll('a[href], button:not(:disabled), input:not([type="hidden"]), textarea');
+    var list = Array.prototype.filter.call(all, function (el) {
+      return el.offsetWidth > 0 || el.offsetHeight > 0 || el === document.activeElement;
+    });
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (ev.shiftKey && document.activeElement === first) { ev.preventDefault(); last.focus(); }
+    else if (!ev.shiftKey && document.activeElement === last) { ev.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- 동의 카드 ---------- */
+  Array.prototype.forEach.call(form.querySelectorAll('[data-consent] input[type="checkbox"]'), function (cb) {
+    cb.addEventListener('change', function () {
+      var card = cb.closest('[data-consent]');
+      if (card) {
+        card.classList.toggle('is-checked', cb.checked);
+        if (cb.checked) card.classList.remove('is-bad');
+      }
+      hideAlert();
+    });
+  });
+
+  /* ---------- 기타 선택 시 입력칸 ---------- */
+  Array.prototype.forEach.call(form.querySelectorAll('input[name="type"]'), function (rd) {
+    rd.addEventListener('change', function () {
+      var on = !!(otherRd && otherRd.checked);
+      if (otherWrp) otherWrp.classList.toggle('is-on', on);
+      if (on && otherTxt) setTimeout(function () { try { otherTxt.focus({ preventScroll: true }); } catch (e) {} }, 220);
+      if (typeErr) typeErr.classList.remove('is-on');
+      hideAlert();
+    });
+  });
+
+  /* ---------- 입력 중 오류 해제 ---------- */
+  Array.prototype.forEach.call(form.querySelectorAll('[data-required]'), function (el) {
+    el.addEventListener('input', function () {
+      var f = el.closest('.b2b-field');
+      if (f) f.classList.remove('has-error');
+      hideAlert();
+    });
+  });
+
+  function hideAlert() { if (alertBox) alertBox.classList.remove('is-on'); }
+  function showAlert(msg) {
+    if (!alertBox) return;
+    if (alertTxt) alertTxt.textContent = msg;
+    alertBox.classList.add('is-on');
+  }
+  function msgOf(el) {
+    var en = el.getAttribute('data-err-en');
+    return (isEn() && en) ? en : (el.getAttribute('data-err') || '');
+  }
+
+  function setErr(el, on) {
+    var f = el.closest('.b2b-field');
+    if (!f) return;
+    f.classList.toggle('has-error', !!on);
+    var slot = f.querySelector('.b2b-err');
+    if (slot && on) slot.textContent = msgOf(el);
+  }
+
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function validate() {
+    var bad = null;
+
+    /* 필수 동의 */
+    Array.prototype.forEach.call(form.querySelectorAll('[data-required-check]'), function (cb) {
+      var card = cb.closest('[data-consent]');
+      if (cb.checked) { if (card) card.classList.remove('is-bad'); return; }
+      if (card) card.classList.add('is-bad');
+      if (!bad) bad = { el: cb, msg: isEn() ? 'Please tick the required consent boxes.' : '필수 동의 항목에 체크해 주세요.' };
+    });
+
+    /* 신청 유형 */
+    var picked = form.querySelector('input[name="type"]:checked');
+    if (!picked) {
+      if (typeErr) typeErr.classList.add('is-on');
+      if (!bad) bad = {
+        el: form.querySelector('input[name="type"]'),
+        msg: isEn() ? 'Please choose an inquiry type.' : '신청 유형을 선택해 주세요.'
+      };
+    } else if (typeErr) {
+      typeErr.classList.remove('is-on');
+    }
+
+    /* 텍스트 필수 항목 */
+    Array.prototype.forEach.call(form.querySelectorAll('[data-required]'), function (el) {
+      var v = (el.value || '').trim();
+      var invalid = !v || (el.hasAttribute('data-email') && !EMAIL.test(v));
+      setErr(el, invalid);
+      if (invalid && !bad) bad = { el: el, msg: msgOf(el) };
+    });
+
+    if (bad) {
+      showAlert(bad.msg);
+      if (bad.el) {
+        var box = bad.el.closest('.b2b-consent') || bad.el.closest('.b2b-field') || bad.el.closest('.b2b-fieldset');
+        if (box && box.scrollIntoView) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        try { bad.el.focus({ preventScroll: true }); } catch (e) {}
+      }
+      return false;
+    }
+    hideAlert();
+    return true;
+  }
+
+  function finish() {
+    if (!sent) return;
+    sent = false;
+    if (doneTimer) { clearTimeout(doneTimer); doneTimer = null; }
+    submit.classList.remove('is-busy');
+    submit.disabled = false;
+    modal.classList.add('is-done');
+    var done = document.getElementById('b2bDone');
+    if (done) done.scrollTop = 0;
+    var ok = document.querySelector('#b2bDone [data-b2b-close]');
+    if (ok) setTimeout(function () { try { ok.focus({ preventScroll: true }); } catch (e) {} }, 240);
+  }
+
+  form.addEventListener('submit', function (ev) {
+    if (!validate()) { ev.preventDefault(); return; }
+    sent = true;
+    submit.classList.add('is-busy');
+    submit.disabled = true;
+    /* 구글 폼 응답은 교차 출처라 읽을 수 없으므로 iframe load 또는 타임아웃으로 완료 처리 */
+    doneTimer = setTimeout(finish, 2600);
+  });
+
+  if (sink) sink.addEventListener('load', function () { finish(); });
+})();
+</script>
+<!-- ========== end B2B 거래상담 ========== -->
+
 <!-- ============ i18n : KO / EN language switch ============ -->
 <style>
 .lang-toggle{
@@ -1280,6 +2017,9 @@ html[lang="en"] body{ letter-spacing:0; }
 (function () {
   /* 값(value)은 HTML 그대로 innerHTML 에 들어갑니다. */
   var T = {
+    /* ---- B2B 거래상담 ---- */
+    "B2B 거래상담": "B2B Inquiry",
+
     /* ---- NAV ---- */
     "원스톱 F&B 솔루션": "One-Stop F&amp;B Solutions",
     "서비스": "Services",
@@ -1485,12 +2225,24 @@ html[lang="en"] body{ letter-spacing:0; }
     targets.push({ el: el, ko: el.innerHTML, en: pair[1] });
   });
 
+  /* data-en / data-en-ph : 요소에 영문을 직접 적어둔 경우 (B2B 거래상담 모달 등) */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-en]'), function (el) {
+    targets.push({ el: el, ko: el.innerHTML, en: el.getAttribute('data-en') });
+  });
+  var phTargets = [];
+  Array.prototype.forEach.call(document.querySelectorAll('[data-en-ph]'), function (el) {
+    phTargets.push({ el: el, ko: el.getAttribute('placeholder') || '', en: el.getAttribute('data-en-ph') });
+  });
+
   function apply(lang) {
     targets.forEach(function (t) {
       var html = (lang === 'en') ? t.en : t.ko;
       if (t.el.innerHTML !== html) t.el.innerHTML = html;
     });
     document.documentElement.setAttribute('lang', lang);
+    phTargets.forEach(function (t) {
+      t.el.setAttribute('placeholder', (lang === 'en') ? t.en : t.ko);
+    });
     document.title = META[lang].title;
     var md = document.querySelector('meta[name="description"]');
     if (md && META[lang].desc) md.setAttribute('content', META[lang].desc);
