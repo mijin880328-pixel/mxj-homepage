@@ -2027,6 +2027,7 @@ body.b2b-lock { overflow: hidden; }
     if (doneTimer) { clearTimeout(doneTimer); doneTimer = null; }
     submit.classList.remove('is-busy');
     submit.disabled = false;
+    if (typeof fbq === 'function') fbq('track', 'Lead');
     modal.classList.add('is-done');
     var done = document.getElementById('b2bDone');
     if (done) done.scrollTop = 0;
@@ -2546,6 +2547,7 @@ body.b2b-lock { overflow: hidden; }
 
   function finish() {
     busy(false);
+    if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
     modal.classList.add('is-done');
     var done = document.getElementById('hbDone');
     if (done) done.scrollTop = 0;
@@ -2964,5 +2966,19 @@ html[lang="en"] body{ letter-spacing:0; }
 })();
 </script>
 <!-- ========== end i18n ========== -->
+
+<!-- ========== Meta Pixel : 링크 클릭 이벤트 ========== -->
+<script>
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a');
+  if(!a || typeof fbq !== 'function') return;
+  var h = a.href || '';
+  if(h.includes('kakao')) fbq('track','Contact');
+  else if(h.includes('smartstore.naver.com')) fbq('track','ViewContent',{content_name:'스마트스토어'});
+  else if(h.includes('ctee')) fbq('track','ViewContent',{content_name:'영상쇼핑몰'});
+  else if(h.includes('cafe.naver.com')) fbq('trackCustom','CafeClick');
+});
+</script>
+<!-- ========== end Meta Pixel 이벤트 ========== -->
 </body>
 </html>
