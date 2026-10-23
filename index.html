@@ -373,6 +373,73 @@ nav.is-stuck {
 .exp-stat-num span { font-size: .48em; color: var(--accent-soft); }
 .exp-stat-label { font-size: 12px; font-weight: 500; color: rgba(255,255,255,.48); margin-top: 10px; letter-spacing: .05em; }
 
+.exp-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--accent-soft); margin-bottom: 16px;
+}
+.exp-kicker::before { content: ''; width: 22px; height: 1.5px; background: var(--accent); }
+.exp-record {
+  flex-basis: 100%;
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 0 clamp(24px, 4vw, 52px);
+  margin-top: clamp(8px, 2vw, 20px);
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid rgba(255,255,255,.09);
+}
+.exp-col h3 {
+  font-size: 12px; font-weight: 600; letter-spacing: .14em;
+  color: var(--accent-soft); margin-bottom: 10px;
+}
+.exp-col ul { list-style: none; }
+.exp-col li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+  padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  font-size: 14px; line-height: 1.5;
+}
+.exp-col li:last-child { border-bottom: 0; }
+.exp-col li b { font-weight: 600; color: rgba(255,255,255,.9); }
+.exp-col li span { font-size: 12.5px; color: rgba(255,255,255,.46); text-align: right; white-space: nowrap; }
+.exp-certs {
+  grid-column: 1 / -1;
+  margin-top: 22px; font-size: 12.5px; line-height: 1.8;
+  color: rgba(255,255,255,.4); letter-spacing: .01em;
+}
+@media (max-width: 900px) {
+  .exp-record { grid-template-columns: 1fr; }
+  .exp-col + .exp-col { margin-top: 26px; }
+}
+@media (max-width: 420px) {
+  .exp-col li { font-size: 13.5px; }
+  .exp-col li span { font-size: 12px; }
+}
+
+/* 대표 이력 — 뉴트럴 그레이 + 주황 포인트 */
+#profile.expertise-banner {
+  background: #F4F4F3;
+  color: var(--ink); border-top: 1px solid #E6E6E4; border-bottom: 1px solid #E6E6E4;
+}
+#profile.expertise-banner::before { display: none; }
+#profile .exp-kicker { color: var(--accent); }
+#profile .exp-kicker::before { background: var(--accent); }
+#profile .expertise-left h2 { color: var(--ink); }
+#profile .expertise-left h2 em { color: var(--accent); }
+#profile .expertise-left p { color: #4A4A48; }
+#profile .exp-stat::before { background: var(--accent); width: 2px; }
+#profile .exp-stat-num { color: var(--accent); }
+#profile .exp-stat-num span { color: var(--accent); }
+#profile .exp-stat-label { color: #4A4A48; font-weight: 600; }
+#profile .exp-record {
+  background: #fff; border: 1px solid #E6E6E4; border-top: 3px solid var(--accent);
+  border-radius: var(--radius); box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
+  padding: clamp(24px,3.4vw,40px) clamp(20px,3.4vw,40px);
+}
+#profile .exp-col h3 { color: var(--accent); }
+#profile .exp-col li { border-bottom-color: #EFEFEE; }
+#profile .exp-col li b { color: #1A1A1A; }
+#profile .exp-col li span { color: #8A8A88; }
+#profile .exp-certs { color: #8A8A88; padding-top: 18px; border-top: 1px solid #EFEFEE; }
+
 /* ---------- Services ---------- */
 .services-bg { background: var(--surface-2); }
 .services-grid {
@@ -766,27 +833,61 @@ footer {
   </div>
 </div>
 
-<!-- EXPERTISE BANNER -->
-<div class="expertise-banner">
+<!-- EXPERTISE BANNER — 대표 이력 -->
+<div class="expertise-banner" id="profile">
   <div class="expertise-inner">
     <div class="expertise-left">
-      <h2>20년이 만든 <em>신뢰</em>,<br>현장에서 검증된 방법론</h2>
-      <p>이론이 아닌 실제 운영에서 나온 노하우로 일합니다.<br>어떤 문제든 먼저 겪어본 사람이 옆에 있습니다.</p>
-      <p>사장님의 상황에 맞게 설계합니다.</p>
+      <div class="exp-kicker" data-en="Founder's Record">Founder's Record</div>
+      <h2 data-en="Menus designed by someone<br>who has <em>worked the line</em>">직접 주방에 서 본 사람이<br><em>메뉴를 설계합니다</em></h2>
+      <p data-en="From large restaurant and casino kitchens to a stage at Aimo e Nadia, running a pasta restaurant, and menu direction for Bangka with its brand patents — every consulting and menu project starts from this experience.">대형 레스토랑·카지노 조리부에서 시작해 Aimo e Nadia 스타지, 파스타 매장 운영, 방카(Bangka) 메뉴 디렉팅과 브랜드 특허까지. 컨설팅과 메뉴 개발은 모두 이 경험 위에서 진행합니다.</p>
     </div>
     <div class="expertise-stats">
       <div class="exp-stat">
         <div class="exp-stat-num">20<span>+</span></div>
-        <div class="exp-stat-label">외식업 경력</div>
+        <div class="exp-stat-label" data-en="Years in F&amp;B">외식업 경력</div>
       </div>
       <div class="exp-stat">
-        <div class="exp-stat-num">5<span>개</span></div>
-        <div class="exp-stat-label">서비스 영역</div>
+        <div class="exp-stat-num">14</div>
+        <div class="exp-stat-label" data-en="Consulting projects">컨설팅 실적</div>
       </div>
       <div class="exp-stat">
-        <div class="exp-stat-num">∞</div>
-        <div class="exp-stat-label">성장 가능성</div>
+        <div class="exp-stat-num">2</div>
+        <div class="exp-stat-label" data-en="Registered trademarks">상표 등록</div>
       </div>
+    </div>
+
+    <div class="exp-record">
+      <div class="exp-col">
+        <h3 data-en="Kitchen career">주방 경력</h3>
+        <ul>
+          <li><b>Cafe Lover</b><span data-en="Operator">운영</span></li>
+          <li><b data-en="Bangka">방카 (Bangka)</b><span data-en="Chef &amp; menu director">Chef · 메뉴 디렉팅</span></li>
+          <li><b>Aimo e Nadia</b><span data-en="Stagiaire">Stagiaire</span></li>
+          <li><b data-en="Geuane Masinneun Italian">그안에맛있는이탈리안</b><span data-en="Stagiaire">Stagiaire</span></li>
+          <li><b data-en="Restaurant &amp; casino kitchens">레스토랑·카지노 조리부</b><span data-en="Section head &amp; line cook">조리부 헤드 외</span></li>
+        </ul>
+      </div>
+      <div class="exp-col">
+        <h3 data-en="Menu &amp; consulting">메뉴 개발 · 컨설팅</h3>
+        <ul>
+          <li><b data-en="Mangnae Jesussi">막내제수씨</b><span data-en="Korean menu direction">한식 메뉴 디렉팅</span></li>
+          <li><b data-en="Hyehwa Dolsoe Ajeossi">혜화돌쇠아저씨</b><span data-en="Italian menu direction">이탈리안 메뉴 디렉팅</span></li>
+          <li><b data-en="Nampung Unah">남풍운아</b><span data-en="Naengmyeon recipe advisory">냉면 레시피 자문</span></li>
+          <li><b data-en="Pasta Cafe Garden + 9">파스타카페가든 외 9건</b><span data-en="Benchmarking advisory">벤치마킹 자문</span></li>
+          <li><b data-en="SBS Art Computer Academy">SBS아트컴퓨터학원</b><span data-en="AI video advisory">AI 영상 자문</span></li>
+        </ul>
+      </div>
+      <div class="exp-col">
+        <h3 data-en="On record">검증된 기록</h3>
+        <ul>
+          <li><b data-en="Bangka Tteokbokki">방카 떡볶이</b><span data-en="Reg. No. 40-1880433">등록 제40-1880433호</span></li>
+          <li><b>LE FROMAGE BY BANGKA</b><span data-en="Reg. No. 40-1829164">등록 제40-1829164호</span></li>
+          <li><b data-en="MangoPlate · 2020">망고플레이트 · 2020</b><span data-en="#6 in pasta">파스타 6위</span></li>
+          <li><b data-en="DiningCode · 2019">다이닝코드 · 2019</b><span data-en="#3 Jang-dong · #5 Ssangmun">장동 3위 · 쌍문 5위</span></li>
+          <li><b data-en="CJ O Shopping">CJ오쇼핑 방송</b><span data-en="3 appearances · 2014–2016">3회 출연 · 2014–2016</span></li>
+        </ul>
+      </div>
+      <p class="exp-certs" data-en="Craftsman Cook, Western Cuisine · Vocational Training Instructor (Cooking, Lv.3) · NCS Instructor · Teaching Certificate · Children's Cooking Instructor">양식조리기능사 · 직업능력개발훈련교사(조리 3급) · NCS강사 · 교원자격증 · 아동요리지도사</p>
     </div>
   </div>
 </div>
@@ -2939,8 +3040,7 @@ html[lang="en"] body{ letter-spacing:0; }
 
   /* 같은 글자지만 마크업이 달라 개별 처리가 필요한 곳 */
   var OVERRIDES = [
-    ['.credential-item:nth-child(2) .cred-num', '5<sup>areas</sup>'],
-    ['.expertise-stats .exp-stat:nth-child(2) .exp-stat-num', '5<span>areas</span>']
+    ['.credential-item:nth-child(2) .cred-num', '5<sup>areas</sup>']
   ];
 
   var META = {
