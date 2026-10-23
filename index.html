@@ -440,6 +440,10 @@ nav.is-stuck {
 #profile .exp-col li span { color: #8A8A88; }
 #profile .exp-certs { color: #8A8A88; padding-top: 18px; border-top: 1px solid #EFEFEE; }
 
+#profile .expertise-left p { word-break: keep-all; max-width: 520px; }
+#profile .expertise-left p + p { margin-top: 12px; color: var(--ink); font-weight: 600; }
+@media (max-width: 760px) { #profile .br-pc { display: none; } }
+
 /* ---------- Services ---------- */
 .services-bg { background: var(--surface-2); }
 .services-grid {
@@ -839,7 +843,8 @@ footer {
     <div class="expertise-left">
       <div class="exp-kicker" data-en="Founder's Record">Founder's Record</div>
       <h2 data-en="Menus designed by someone<br>who has <em>worked the line</em>">직접 주방에 서 본 사람이<br><em>메뉴를 설계합니다</em></h2>
-      <p data-en="From large restaurant and casino kitchens to a stage at Aimo e Nadia, running a pasta restaurant, and menu direction for Bangka with its brand patents — every consulting and menu project starts from this experience.">대형 레스토랑·카지노 조리부에서 시작해 Aimo e Nadia 스타지, 파스타 매장 운영, 방카(Bangka) 메뉴 디렉팅과 브랜드 특허까지. 컨설팅과 메뉴 개발은 모두 이 경험 위에서 진행합니다.</p>
+      <p data-en="From large restaurant and casino kitchens to a stage at Aimo e Nadia, running a pasta restaurant, and menu direction for Bangka with its brand patents.">대형 레스토랑·카지노 조리부에서 시작해<br class="br-pc"> Aimo&nbsp;e&nbsp;Nadia 스타지, 파스타 매장 운영,<br class="br-pc"> <span style="white-space:nowrap">방카(Bangka)</span> 메뉴 디렉팅과 브랜드 특허까지.</p>
+      <p data-en="Every consulting and menu project starts from this experience.">컨설팅과 메뉴 개발은 모두 이 경험 위에서 진행합니다.</p>
     </div>
     <div class="expertise-stats">
       <div class="exp-stat">
