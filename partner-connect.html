@@ -22,20 +22,20 @@ const GOOGLE_FORM = {
   action: "https://docs.google.com/forms/d/e/1FAIpQLSdQ2IvT4NtkHrWJwz_APECasQsKvLqJsWsc__MIIN2D4QzfYw/formResponse",
   // 각 질문의 entry 번호 ("미리 채워진 링크 가져오기"에서 확인) — 비어 있으면 원래 구글 폼으로 안내합니다
   entries: {
-    name:      "",   // 성함
-    phone:     "",   // 연락처
-    region:    "",   // 매장 지역
-    category:  "",   // 업종
-    size:      "",   // 매장 평수
-    vendors:   "",   // 필요한 업체
-    status:    "",   // 현재 상황
-    timing:    "",   // 예상 오픈 또는 리뉴얼 시기
-    budget:    "",   // 대략적인 예산
-    request:   "",   // 원하시는 분위기나 요청 사항
-    consult:   "",   // 메뉴 개발이나 운영 컨설팅도 궁금하신가요?
-    consent:   ""    // 개인정보 수집, 이용 동의
+    name:      "1116673500",   // 성함
+    phone:     "1260475722",   // 연락처
+    region:    "540278866",   // 매장 지역
+    category:  "907337267",   // 업종
+    size:      "1937795",   // 매장 평수
+    vendors:   "21562690",   // 필요한 업체
+    status:    "980435241",   // 현재 상황
+    timing:    "1477136176",   // 예상 오픈 또는 리뉴얼 시기
+    budget:    "1858264686",   // 대략적인 예산
+    request:   "1197408347",   // 원하시는 분위기나 요청 사항
+    consult:   "1972938531",   // 메뉴 개발이나 운영 컨설팅도 궁금하신가요?
+    consent:   "95582298"    // 개인정보 수집, 이용 동의
   },
-  consentValue: "동의합니다",   // 구글 폼 동의 항목의 선택지 문구와 똑같이
+  consentValue: "수집 항목: 성함, 연락처, 매장 지역",   // 구글 폼 동의 항목의 선택지 문구와 똑같이
   fallbackUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdQ2IvT4NtkHrWJwz_APECasQsKvLqJsWsc__MIIN2D4QzfYw/viewform"
 };
 </script>
@@ -248,52 +248,57 @@ footer a{text-decoration:none;color:var(--muted)}
             <input type="text" id="region" name="region" placeholder="예: 서울 강동구">
             <div class="err">매장 지역을 입력해 주세요</div>
           </div>
-          <div class="field">
-            <label class="label" for="category">업종</label>
+          <div class="field" data-req>
+            <label class="label" for="category">업종<span class="req">*</span></label>
             <input type="text" id="category" name="category" placeholder="예: 이탈리안, 카페, 한식 주점">
+            <div class="err">업종을 입력해 주세요</div>
           </div>
         </div>
-        <div class="field">
-          <span class="label">매장 평수</span>
+        <div class="field" data-req data-type="choice" data-name="size">
+          <span class="label">매장 평수<span class="req">*</span></span>
           <div class="opts c4" role="radiogroup">
             <label class="opt center"><input type="radio" name="size" value="10평 미만"><span class="box">10평 미만</span></label>
             <label class="opt center"><input type="radio" name="size" value="10~20평"><span class="box">10~20평</span></label>
             <label class="opt center"><input type="radio" name="size" value="20~40평"><span class="box">20~40평</span></label>
             <label class="opt center"><input type="radio" name="size" value="40평 이상"><span class="box">40평 이상</span></label>
           </div>
+          <div class="err">매장 평수를 선택해 주세요</div>
         </div>
       </div>
 
       <!-- 2. 필요한 업체 -->
       <div class="section">
         <div class="section-head"><span class="num">02</span><h2>필요한 업체</h2></div>
-        <div class="field">
-          <span class="label">어떤 업체가 필요하신가요?<span class="hint">여러 개 선택할 수 있어요</span></span>
+        <div class="field" data-req data-type="choice" data-name="vendors">
+          <span class="label">어떤 업체가 필요하신가요?<span class="req">*</span><span class="hint">여러 개 선택할 수 있어요</span></span>
           <div class="opts c4">
             <label class="opt"><input type="checkbox" name="vendors" value="간판"><span class="box"><span class="ic">🪧</span>간판</span><span class="check"></span></label>
             <label class="opt"><input type="checkbox" name="vendors" value="주방기기"><span class="box"><span class="ic">🔥</span>주방기기</span><span class="check"></span></label>
             <label class="opt"><input type="checkbox" name="vendors" value="그릇"><span class="box"><span class="ic">🍽️</span>그릇</span><span class="check"></span></label>
             <label class="opt"><input type="checkbox" name="vendors" value="기물"><span class="box"><span class="ic">🥄</span>기물</span><span class="check"></span></label>
           </div>
+          <div class="err">필요한 업체를 하나 이상 선택해 주세요</div>
         </div>
       </div>
 
       <!-- 3. 매장 상황 -->
       <div class="section">
         <div class="section-head"><span class="num">03</span><h2>매장 상황</h2></div>
-        <div class="field">
-          <span class="label">현재 상황</span>
+        <div class="field" data-req data-type="choice" data-name="status">
+          <span class="label">현재 상황<span class="req">*</span></span>
           <div class="opts c2" role="radiogroup">
             <label class="opt"><input type="radio" name="status" value="매장 계약 전"><span class="box">매장 계약 전<small>자리를 알아보는 중</small></span><span class="check"></span></label>
             <label class="opt"><input type="radio" name="status" value="매장 계약 완료"><span class="box">매장 계약 완료<small>공사 준비 단계</small></span><span class="check"></span></label>
             <label class="opt"><input type="radio" name="status" value="공사 진행 중"><span class="box">공사 진행 중<small>시공이 시작됨</small></span><span class="check"></span></label>
             <label class="opt"><input type="radio" name="status" value="운영 중(리뉴얼)"><span class="box">운영 중 (리뉴얼)<small>기존 매장 개선</small></span><span class="check"></span></label>
           </div>
+          <div class="err">현재 상황을 선택해 주세요</div>
         </div>
         <div class="grid2">
-          <div class="field">
-            <label class="label" for="timing">예상 오픈 또는 리뉴얼 시기</label>
+          <div class="field" data-req>
+            <label class="label" for="timing">예상 오픈 또는 리뉴얼 시기<span class="req">*</span></label>
             <input type="text" id="timing" name="timing" placeholder="예: 내년 3월 초">
+            <div class="err">예상 시기를 입력해 주세요</div>
           </div>
           <div class="field">
             <label class="label" for="budget">대략적인 예산</label>
@@ -396,6 +401,7 @@ footer a{text-decoration:none;color:var(--muted)}
     f.querySelectorAll('[data-req]').forEach(field => {
       let ok;
       if (field.dataset.type === 'consent') ok = document.getElementById('consent').checked;
+      else if (field.dataset.type === 'choice') ok = !!f.querySelector('input[name="' + field.dataset.name + '"]:checked');
       else {
         const el = field.querySelector('input,textarea');
         const v = el.value.trim();
