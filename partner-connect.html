@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#15120E">
+<title>MXJ 외식업 업체 연결 신청</title>
+<meta name="description" content="간판, 주방기기, 그릇, 기물 업체를 찾고 계신 사장님께 가게 상황에 맞는 업체를 연결해 드립니다.">
+<meta property="og:title" content="MXJ 외식업 업체 연결 신청">
+<meta property="og:description" content="간판, 주방기기, 그릇, 기물 업체를 찾고 계신 사장님께 가게 상황에 맞는 업체를 연결해 드립니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   구글 폼 연결 설정 — 여기만 채우면 응답이 구글 폼으로 들어갑니다
+   ========================================================= */
+</style>
+<script>
+const GOOGLE_FORM = {
+  // 구글 폼 응답 주소 (viewform → formResponse)
+  action: "https://docs.google.com/forms/d/e/1FAIpQLSdQ2IvT4NtkHrWJwz_APECasQsKvLqJsWsc__MIIN2D4QzfYw/formResponse",
+  // 각 질문의 entry 번호 ("미리 채워진 링크 가져오기"에서 확인) — 비어 있으면 원래 구글 폼으로 안내합니다
+  entries: {
+    name:      "",   // 성함
+    phone:     "",   // 연락처
+    region:    "",   // 매장 지역
+    category:  "",   // 업종
+    size:      "",   // 매장 평수
+    vendors:   "",   // 필요한 업체
+    status:    "",   // 현재 상황
+    timing:    "",   // 예상 오픈 또는 리뉴얼 시기
+    budget:    "",   // 대략적인 예산
+    request:   "",   // 원하시는 분위기나 요청 사항
+    consult:   "",   // 메뉴 개발이나 운영 컨설팅도 궁금하신가요?
+    consent:   ""    // 개인정보 수집, 이용 동의
+  },
+  consentValue: "동의합니다",   // 구글 폼 동의 항목의 선택지 문구와 똑같이
+  fallbackUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdQ2IvT4NtkHrWJwz_APECasQsKvLqJsWsc__MIIN2D4QzfYw/viewform"
+};
+</script>
+<style>
+:root{
+  --bg:#15120E; --bg-2:#1C1813; --card:#211C16; --card-2:#2A241C;
+  --line:#3A3227; --line-2:#4A4033;
+  --text:#F3EDE3; --muted:#B4A895; --faint:#7E7362;
+  --gold:#C9A15B; --gold-2:#E2C27F; --gold-ink:#1A140C;
+  --ok:#8FB07A; --err:#E07A5F;
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,161,91,.14), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,161,91,.06), transparent 60%);
+  background-attachment:fixed;
+}
+a{color:inherit}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(21,18,14,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(58,50,39,.6)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:"Noto Serif KR",serif;font-weight:700;font-size:22px;letter-spacing:.06em;text-decoration:none}
+.logo i{font-style:normal;color:var(--gold)}
+.back{font-size:14px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px}
+.back:hover{color:var(--text)}
+.progress{height:2px;background:var(--line)}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transition:width .4s ease}
+
+/* hero */
+.hero{padding:56px 0 36px;text-align:left}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.18em;color:var(--gold);font-weight:600;text-transform:uppercase}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--gold)}
+.hero h1{font-family:"Noto Serif KR",serif;font-weight:700;font-size:clamp(30px,7vw,44px);line-height:1.3;margin:16px 0 18px;letter-spacing:-.01em;word-break:keep-all}
+.hero h1 em{font-style:normal;color:var(--gold-2)}
+.hero p{color:var(--muted);font-size:17px;word-break:keep-all;max-width:34em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chips span{border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--text);background:rgba(42,36,28,.5)}
+
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 40px}
+.how div{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:16px 14px}
+.how b{display:block;font-family:"Noto Serif KR",serif;color:var(--gold);font-size:13px;margin-bottom:6px;letter-spacing:.05em}
+.how p{font-size:14px;color:var(--text);line-height:1.45;word-break:keep-all}
+
+/* form */
+form{display:flex;flex-direction:column;gap:18px;padding-bottom:40px}
+.section{background:linear-gradient(180deg,var(--card),var(--bg-2));border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px dashed var(--line)}
+.section-head .num{font-family:"Noto Serif KR",serif;color:var(--gold);font-size:14px;font-weight:700}
+.section-head h2{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.field{margin-bottom:22px}
+.field:last-child{margin-bottom:0}
+.label{display:block;font-weight:600;font-size:15px;margin-bottom:10px;word-break:keep-all}
+.label .req{color:var(--gold);margin-left:3px}
+.hint{display:block;font-size:13px;color:var(--faint);font-weight:400;margin-top:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid2 .field{margin-bottom:22px}
+
+input[type=text],input[type=tel],textarea{
+  width:100%;background:var(--bg);border:1px solid var(--line-2);border-radius:12px;
+  color:var(--text);font:inherit;padding:14px 16px;transition:border-color .2s,box-shadow .2s;
+}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
+input::placeholder,textarea::placeholder{color:var(--faint)}
+input:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,161,91,.18)}
+.field.invalid input,.field.invalid textarea{border-color:var(--err)}
+.err{display:none;color:var(--err);font-size:13px;margin-top:6px}
+.field.invalid .err{display:block}
+
+/* option cards */
+.opts{display:grid;gap:10px}
+.opts.c2{grid-template-columns:1fr 1fr}
+.opts.c3{grid-template-columns:repeat(3,1fr)}
+.opts.c4{grid-template-columns:repeat(4,1fr)}
+.opt{position:relative;cursor:pointer}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .box{
+  display:flex;flex-direction:column;justify-content:center;gap:4px;height:100%;
+  border:1px solid var(--line-2);border-radius:12px;padding:14px 14px;background:var(--bg);
+  transition:all .18s ease;font-size:15px;font-weight:500;word-break:keep-all;
+}
+.opt .box small{color:var(--faint);font-size:12.5px;font-weight:400;line-height:1.4}
+.opt .box .ic{font-size:20px;line-height:1;margin-bottom:4px}
+.opt.center .box{align-items:center;text-align:center}
+.opt:hover .box{border-color:var(--gold);background:var(--card-2)}
+.opt input:checked + .box{border-color:var(--gold);background:linear-gradient(180deg,rgba(201,161,91,.16),rgba(201,161,91,.06));box-shadow:inset 0 0 0 1px var(--gold)}
+.opt input:checked + .box small{color:var(--muted)}
+.opt input:focus-visible + .box{box-shadow:0 0 0 3px rgba(201,161,91,.35)}
+.opt .check{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:.18s}
+.opt input:checked ~ .check{background:var(--gold);border-color:var(--gold)}
+.opt input:checked ~ .check::after{content:"";width:5px;height:9px;border:solid var(--gold-ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.field.invalid .opt .box{border-color:rgba(224,122,95,.6)}
+
+/* consult callout */
+.callout{background:linear-gradient(135deg,rgba(201,161,91,.14),rgba(201,161,91,.03));border:1px solid rgba(201,161,91,.4)}
+.callout .lead{color:var(--muted);font-size:14.5px;margin:-8px 0 16px;word-break:keep-all}
+
+/* consent */
+.consent-box{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--muted);margin-bottom:14px}
+.consent-box dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.consent-box dt{color:var(--faint)}
+.consent-box dd{color:var(--text)}
+.agree{display:flex;align-items:center;gap:12px;cursor:pointer;padding:14px 16px;border:1px solid var(--line-2);border-radius:12px;transition:.18s}
+.agree:hover{border-color:var(--gold)}
+.agree input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:1.5px solid var(--line-2);border-radius:6px;flex-shrink:0;display:grid;place-items:center;cursor:pointer;transition:.18s;background:var(--bg)}
+.agree input:checked{background:var(--gold);border-color:var(--gold)}
+.agree input:checked::after{content:"";width:6px;height:11px;border:solid var(--gold-ink);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.agree span{font-weight:600}
+.field.invalid .agree{border-color:var(--err)}
+
+/* submit */
+.submit-area{position:sticky;bottom:0;padding:14px 0 18px;background:linear-gradient(180deg,rgba(21,18,14,0),var(--bg) 35%);z-index:10}
+.btn{
+  width:100%;border:0;cursor:pointer;font:inherit;font-weight:700;font-size:17px;letter-spacing:-.01em;
+  padding:18px 20px;border-radius:14px;color:var(--gold-ink);
+  background:linear-gradient(135deg,var(--gold-2),var(--gold));
+  box-shadow:0 10px 30px -10px rgba(201,161,91,.55);transition:transform .15s,box-shadow .2s,opacity .2s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:0 14px 34px -10px rgba(201,161,91,.7)}
+.btn:active{transform:translateY(0)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.spinner{width:18px;height:18px;border:2px solid rgba(26,20,12,.3);border-top-color:var(--gold-ink);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn[disabled] .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submit-note{text-align:center;font-size:13px;color:var(--faint);margin-top:10px}
+
+/* success */
+.done{display:none;text-align:center;padding:80px 0 100px}
+.done.show{display:block;animation:rise .5s ease}
+.done .seal{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,rgba(201,161,91,.25),rgba(201,161,91,.05));border:1px solid var(--gold)}
+.done .seal::after{content:"";width:16px;height:30px;border:solid var(--gold-2);border-width:0 3px 3px 0;transform:rotate(45deg) translate(-3px,-3px)}
+.done h2{font-family:"Noto Serif KR",serif;font-size:28px;margin-bottom:14px}
+.done p{color:var(--muted);word-break:keep-all}
+.done .actions{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:34px auto 0}
+.btn-ghost{display:block;text-decoration:none;text-align:center;padding:15px;border-radius:12px;border:1px solid var(--line-2);font-weight:600;transition:.18s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-2)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+footer{border-top:1px solid var(--line);padding:28px 0 40px;font-size:13px;color:var(--faint);text-align:center;line-height:1.8}
+footer a{text-decoration:none;color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,20px);background:var(--card-2);border:1px solid var(--err);color:var(--text);padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:560px){
+  .hero{padding:40px 0 28px}
+  .how{grid-template-columns:1fr;gap:8px}
+  .how div{display:flex;gap:12px;align-items:baseline;padding:13px 14px}
+  .how b{margin:0;flex-shrink:0}
+  .section{padding:22px 16px}
+  .grid2{grid-template-columns:1fr;gap:0}
+  .opts.c4{grid-template-columns:1fr 1fr}
+  .opts.c3{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="./">M<i>×</i>J</a>
+    <a class="back" href="./">← 홈으로</a>
+  </div>
+  <div class="progress"><span id="bar"></span></div>
+</header>
+
+<main class="wrap">
+  <div id="formView">
+    <section class="hero">
+      <span class="eyebrow">Partner Connect</span>
+      <h1>가게에 맞는 업체,<br><em>MXJ가 연결해 드립니다</em></h1>
+      <p>간판, 주방기기, 그릇, 기물 업체를 찾고 계신 사장님께 가게 상황에 맞는 업체를 연결해 드립니다. 남겨주신 내용을 확인한 뒤 연락드릴게요.</p>
+      <div class="chips"><span>간판</span><span>주방기기</span><span>그릇</span><span>기물</span></div>
+    </section>
+
+    <div class="how">
+      <div><b>01</b><p>신청서 작성</p></div>
+      <div><b>02</b><p>내용 확인 후 연락</p></div>
+      <div><b>03</b><p>맞춤 업체 연결</p></div>
+    </div>
+
+    <form id="f" novalidate>
+      <!-- 1. 기본 정보 -->
+      <div class="section">
+        <div class="section-head"><span class="num">01</span><h2>기본 정보</h2></div>
+        <div class="grid2">
+          <div class="field" data-req>
+            <label class="label" for="name">성함<span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="홍길동" autocomplete="name">
+            <div class="err">성함을 입력해 주세요</div>
+          </div>
+          <div class="field" data-req data-type="phone">
+            <label class="label" for="phone">연락처<span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" autocomplete="tel" inputmode="numeric">
+            <div class="err">연락 가능한 번호를 입력해 주세요</div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field" data-req>
+            <label class="label" for="region">매장 지역<span class="req">*</span></label>
+            <input type="text" id="region" name="region" placeholder="예: 서울 강동구">
+            <div class="err">매장 지역을 입력해 주세요</div>
+          </div>
+          <div class="field">
+            <label class="label" for="category">업종</label>
+            <input type="text" id="category" name="category" placeholder="예: 이탈리안, 카페, 한식 주점">
+          </div>
+        </div>
+        <div class="field">
+          <span class="label">매장 평수</span>
+          <div class="opts c4" role="radiogroup">
+            <label class="opt center"><input type="radio" name="size" value="10평 미만"><span class="box">10평 미만</span></label>
+            <label class="opt center"><input type="radio" name="size" value="10~20평"><span class="box">10~20평</span></label>
+            <label class="opt center"><input type="radio" name="size" value="20~40평"><span class="box">20~40평</span></label>
+            <label class="opt center"><input type="radio" name="size" value="40평 이상"><span class="box">40평 이상</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 필요한 업체 -->
+      <div class="section">
+        <div class="section-head"><span class="num">02</span><h2>필요한 업체</h2></div>
+        <div class="field">
+          <span class="label">어떤 업체가 필요하신가요?<span class="hint">여러 개 선택할 수 있어요</span></span>
+          <div class="opts c4">
+            <label class="opt"><input type="checkbox" name="vendors" value="간판"><span class="box"><span class="ic">🪧</span>간판</span><span class="check"></span></label>
+            <label class="opt"><input type="checkbox" name="vendors" value="주방기기"><span class="box"><span class="ic">🔥</span>주방기기</span><span class="check"></span></label>
+            <label class="opt"><input type="checkbox" name="vendors" value="그릇"><span class="box"><span class="ic">🍽️</span>그릇</span><span class="check"></span></label>
+            <label class="opt"><input type="checkbox" name="vendors" value="기물"><span class="box"><span class="ic">🥄</span>기물</span><span class="check"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 매장 상황 -->
+      <div class="section">
+        <div class="section-head"><span class="num">03</span><h2>매장 상황</h2></div>
+        <div class="field">
+          <span class="label">현재 상황</span>
+          <div class="opts c2" role="radiogroup">
+            <label class="opt"><input type="radio" name="status" value="매장 계약 전"><span class="box">매장 계약 전<small>자리를 알아보는 중</small></span><span class="check"></span></label>
+            <label class="opt"><input type="radio" name="status" value="매장 계약 완료"><span class="box">매장 계약 완료<small>공사 준비 단계</small></span><span class="check"></span></label>
+            <label class="opt"><input type="radio" name="status" value="공사 진행 중"><span class="box">공사 진행 중<small>시공이 시작됨</small></span><span class="check"></span></label>
+            <label class="opt"><input type="radio" name="status" value="운영 중(리뉴얼)"><span class="box">운영 중 (리뉴얼)<small>기존 매장 개선</small></span><span class="check"></span></label>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label class="label" for="timing">예상 오픈 또는 리뉴얼 시기</label>
+            <input type="text" id="timing" name="timing" placeholder="예: 내년 3월 초">
+          </div>
+          <div class="field">
+            <label class="label" for="budget">대략적인 예산</label>
+            <input type="text" id="budget" name="budget" placeholder="예: 간판 300만 원 내외">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label" for="request">원하시는 분위기나 요청 사항</label>
+          <textarea id="request" name="request" placeholder="원하시는 분위기, 참고하고 싶은 매장, 꼭 필요한 조건 등을 편하게 적어주세요."></textarea>
+        </div>
+      </div>
+
+      <!-- 4. 컨설팅 -->
+      <div class="section callout">
+        <div class="section-head"><span class="num">04</span><h2>메뉴 개발이나 운영 컨설팅도 궁금하신가요?</h2></div>
+        <p class="lead">업체 연결과 함께, 메뉴와 운영 고민도 같이 상담받으실 수 있어요.</p>
+        <div class="field">
+          <div class="opts c2" role="radiogroup">
+            <label class="opt"><input type="radio" name="consult" value="네, 같이 상담받고 싶어요"><span class="box">네, 같이 상담받고 싶어요</span><span class="check"></span></label>
+            <label class="opt"><input type="radio" name="consult" value="아니요, 업체 연결만 원해요"><span class="box">아니요, 업체 연결만 원해요</span><span class="check"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. 동의 -->
+      <div class="section">
+        <div class="section-head"><span class="num">05</span><h2>개인정보 수집·이용 동의</h2></div>
+        <div class="consent-box">
+          <dl>
+            <dt>수집 항목</dt><dd>성함, 연락처, 매장 지역</dd>
+            <dt>이용 목적</dt><dd>업체 연결 및 상담 연락</dd>
+            <dt>보관 기간</dt><dd>상담 완료 후 1년</dd>
+          </dl>
+        </div>
+        <div class="field" data-req data-type="consent">
+          <label class="agree"><input type="checkbox" id="consent" name="consent"><span>위 내용에 동의합니다 <span style="color:var(--gold)">(필수)</span></span></label>
+          <div class="err">개인정보 수집·이용에 동의해 주세요</div>
+        </div>
+      </div>
+
+      <div class="submit-area">
+        <button class="btn" type="submit" id="submitBtn"><span class="spinner"></span><span id="btnText">업체 연결 신청하기</span></button>
+        <p class="submit-note">남겨주신 내용을 확인한 뒤 연락드릴게요.</p>
+      </div>
+    </form>
+  </div>
+
+  <section class="done" id="doneView" aria-live="polite">
+    <div class="seal"></div>
+    <h2>신청이 접수되었어요</h2>
+    <p>남겨주신 내용을 확인한 뒤<br>연락드릴게요. 감사합니다.</p>
+    <div class="actions">
+      <a class="btn-ghost" href="https://pf.kakao.com/_bRxbxdX" target="_blank" rel="noopener">카카오톡으로 바로 문의하기</a>
+      <a class="btn-ghost" href="./">홈으로 돌아가기</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>원스톱 F&amp;B 솔루션 · 엠엑스제이(MXJ)</div>
+    <div><a href="tel:010-3088-4306">010-3088-4306</a> · <a href="mailto:mijin6@naver.com">mijin6@naver.com</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const f = document.getElementById('f');
+  const bar = document.getElementById('bar');
+  const toast = document.getElementById('toast');
+
+  // 연락처 자동 하이픈
+  const phone = document.getElementById('phone');
+  phone.addEventListener('input', () => {
+    let d = phone.value.replace(/\D/g,'').slice(0,11);
+    if (d.length > 7) d = d.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+    else if (d.length > 3) d = d.replace(/(\d{3})(\d+)/, '$1-$2');
+    phone.value = d;
+  });
+
+  // 진행 막대
+  const trackNames = ['name','phone','region','category','size','vendors','status','timing','budget','request','consult','consent'];
+  function progress(){
+    const fd = new FormData(f);
+    let filled = 0;
+    trackNames.forEach(n => {
+      const v = n === 'consent' ? (document.getElementById('consent').checked ? 'y':'') : fd.getAll(n).join('');
+      if (v && String(v).trim()) filled++;
+    });
+    bar.style.width = (filled / trackNames.length * 100) + '%';
+  }
+  f.addEventListener('input', progress);
+  f.addEventListener('change', progress);
+
+  // 검증
+  function validate(){
+    let firstBad = null;
+    f.querySelectorAll('[data-req]').forEach(field => {
+      let ok;
+      if (field.dataset.type === 'consent') ok = document.getElementById('consent').checked;
+      else {
+        const el = field.querySelector('input,textarea');
+        const v = el.value.trim();
+        ok = field.dataset.type === 'phone' ? v.replace(/\D/g,'').length >= 9 : v.length > 0;
+      }
+      field.classList.toggle('invalid', !ok);
+      if (!ok && !firstBad) firstBad = field;
+    });
+    if (firstBad) firstBad.scrollIntoView({behavior:'smooth', block:'center'});
+    return !firstBad;
+  }
+  f.addEventListener('input', e => {
+    const field = e.target.closest('.field.invalid');
+    if (field) field.classList.remove('invalid');
+  });
+  f.addEventListener('change', e => {
+    const field = e.target.closest('.field.invalid');
+    if (field) field.classList.remove('invalid');
+  });
+
+  function showToast(msg){
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(showToast.t); showToast.t = setTimeout(() => toast.classList.remove('show'), 3200);
+  }
+
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validate()) { showToast('필수 항목을 확인해 주세요'); return; }
+
+    const E = GOOGLE_FORM.entries;
+    const configured = Object.values(E).every(v => String(v).trim());
+    if (!configured) {
+      // 연결 전에는 원래 구글 폼으로 안내
+      window.open(GOOGLE_FORM.fallbackUrl, '_blank', 'noopener');
+      return;
+    }
+
+    const fd = new FormData(f);
+    const body = new URLSearchParams();
+    const add = (key, val) => { if (val && String(val).trim()) body.append('entry.' + String(E[key]).replace(/^entry\./,''), String(val).trim()); };
+    ['name','phone','region','category','size','status','timing','budget','request','consult'].forEach(k => add(k, fd.get(k)));
+    fd.getAll('vendors').forEach(v => add('vendors', v));
+    add('consent', GOOGLE_FORM.consentValue);
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; document.getElementById('btnText').textContent = '보내는 중…';
+    try {
+      await fetch(GOOGLE_FORM.action, { method:'POST', mode:'no-cors', body });
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('doneView').classList.add('show');
+      bar.style.width = '100%';
+      window.scrollTo({top:0, behavior:'smooth'});
+      if (window.fbq) try { fbq('track','Lead'); } catch(_){}
+    } catch(err) {
+      btn.disabled = false; document.getElementById('btnText').textContent = '업체 연결 신청하기';
+      showToast('전송에 실패했어요. 잠시 후 다시 시도해 주세요');
+    }
+  });
+})();
+</script>
+</body>
+</html>
