@@ -131,7 +131,7 @@ src="https://www.facebook.com/tr?id=2182912582494193&ev=PageView&noscript=1"
       "itemOffered": {
        "@type": "Service",
        "name": "외식업 컨설팅",
-       "description": "식당 창업과 운영 문제를 현장에서 진단하고 해결책을 제시하는 전수창업 방식의 컨설팅입니다. 1년간 사후 지원을 제공하며, 주방기기·기물·간판·그릇 업체는 알선만 해 드립니다.",
+       "description": "식당 창업과 운영 문제를 현장에서 진단하고 해결책을 제시하는 전수창업 방식의 컨설팅입니다. 1년간 사후관리 12회를 제공하며, 주방기기·기물·간판·그릇 업체는 알선만 해 드립니다.",
        "provider": {
         "@id": "https://mijin880328-pixel.github.io/mxj-homepage/#org"
        },
@@ -356,7 +356,7 @@ src="https://www.facebook.com/tr?id=2182912582494193&ev=PageView&noscript=1"
      "name": "서비스 후 사후 지원이 있나요?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "외식업 컨설팅은 1년간 사후 지원을 제공합니다. 메뉴 개발은 1회성 용역이라 사후 지원이 포함되지 않습니다."
+      "text": "외식업 컨설팅은 납품 완료일부터 12개월간 월 1회, 총 12회 사후관리를 제공합니다(매장 방문 4회, 화상·전화 8회, 6·12개월차 종합 점검). 레시피 미세 조정 3회, 원가표 단가 갱신 2회, 신규 직원 교육 1회가 포함되며, 이를 넘는 방문·교육·수정은 별도 견적입니다. 메뉴 개발은 1회성 용역이라 사후 지원이 포함되지 않습니다."
      }
     },
     {
@@ -563,6 +563,24 @@ nav.is-stuck {
 .sec-body {
   font-size: clamp(15px, 1.4vw, 16.5px); font-weight: 400;
   color: var(--ink-2); line-height: 1.9; max-width: 580px;
+}
+
+/* Hero background photo */
+.hero-bg {
+  position: absolute; inset: -12px; z-index: 0; pointer-events: none;
+  background: url('img/hero-kitchen-team.jpg') 62% 30% / cover no-repeat;
+  filter: blur(2.5px) saturate(.85);
+  opacity: .34;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(251,250,248,.94) 0%, rgba(251,250,248,.80) 30%, rgba(251,250,248,.10) 52%, rgba(251,250,248,0) 64%, rgba(251,250,248,.35) 100%),
+    linear-gradient(180deg, rgba(251,250,248,0) 70%, rgba(251,250,248,.9) 100%);
+}
+@media (max-width: 1040px) {
+  .hero-bg { background-position: 70% 30%; opacity: .26; }
+  .hero-bg::after { background: linear-gradient(180deg, rgba(251,250,248,.82) 0%, rgba(251,250,248,.72) 55%, rgba(251,250,248,.92) 100%); }
 }
 
 /* ---------- HERO ---------- */
@@ -1144,6 +1162,7 @@ footer {
 <main id="main">
 <!-- HERO -->
 <div class="hero-wrap" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero">
     <div class="hero-text">
       <div class="hero-kicker">원스톱 F&amp;B 솔루션 · Since 2025</div>
@@ -1374,6 +1393,8 @@ footer {
       <div><dt data-en="Supervisors">수퍼바이저</dt><dd data-en="8 — incl. Aimo e Nadia, casino &amp;amp; Michelin Bib Gourmand kitchens, Le Cordon Bleu Paris">8명 · Aimo e Nadia, 카지노 및 미쉐린 빕구르망 주방, 르꼬르동블루 파리 출신 포함</dd></div>
       <div><dt data-en="Menu R&amp;amp;D">메뉴 개발</dt><dd data-en="1 menu item · up to 2 revisions · on-site demo · one-off">메뉴 1종 · 수정 2회 · 현장 시연 납품 · 1회성</dd></div>
       <div><dt data-en="Consultation">상담</dt><dd data-en="Free consultation &amp;amp; first diagnostic visit · KakaoTalk">상담·첫 진단 방문 무료 · 카카오톡 채널</dd></div>
+      <div><dt data-en="F&amp;amp;B consulting">외식업 컨설팅</dt><dd data-en="Know-how transfer startup · 1 year of follow-up, 12 sessions (4 store visits · 8 video/phone) · kitchen equipment, smallwares, signage &amp;amp; tableware vendors referred only">전수창업 방식 · 1년간 사후관리 12회(매장 방문 4회 · 화상·전화 8회) · 주방기기·기물·간판·그릇 업체는 연결만</dd></div>
+      <div><dt data-en="Follow-up details">사후관리 내용</dt><dd data-en="Monthly check-ins · visits in months 3·6·9·12 · full review in months 6·12 · 3 recipe fine-tunings · cost sheet updated twice · new-staff training once · group chat weekdays 10:00–18:00, reply within 1 business day">월 1회 점검 · 3·6·9·12개월차 매장 방문 · 6·12개월차 종합 점검 · 레시피 미세 조정 3회 · 원가표 단가 갱신 2회 · 신규 직원 교육 1회 · 단체 채팅방 평일 10~18시, 1영업일 내 답변</dd></div>
     </dl>
   </div>
 </section>
@@ -1589,7 +1610,7 @@ footer {
     </details>
     <details class="faq-item">
       <summary data-en="Is there follow-up support?">서비스 후 사후 지원이 있나요?</summary>
-      <p data-en="F&amp;B consulting includes one year of follow-up support. Menu development is a one-off project and does not include follow-up support.">외식업 컨설팅은 1년간 사후 지원을 제공합니다. 메뉴 개발은 1회성 용역이라 사후 지원이 포함되지 않습니다.</p>
+      <p data-en="F&amp;B consulting includes 12 months of follow-up from delivery: one check-in a month, 12 in total. Months 3, 6, 9 and 12 are store visits and the other 8 are by video or phone, with a full before-and-after review in months 6 and 12. It also covers 3 recipe fine-tunings, 2 cost sheet updates, one new-staff training and a group chat answered on weekdays 10:00–18:00. Anything beyond these counts is quoted separately. Menu development is a one-off project and does not include follow-up support.">외식업 컨설팅은 납품 완료일부터 12개월간 월 1회, 총 12회 사후관리를 제공합니다. 3·6·9·12개월차는 매장 방문, 나머지 8회는 화상 또는 전화로 진행하며, 6·12개월차에는 개선 전과 비교하는 종합 점검을 합니다. 레시피 미세 조정 3회, 원가표 단가 갱신 2회, 신규 직원 교육 1회, 단체 채팅방 응대(평일 10~18시)가 포함되며, 이 횟수를 넘는 방문·교육·수정은 별도 견적입니다. 메뉴 개발은 1회성 용역이라 사후 지원이 포함되지 않습니다.</p>
     </details>
     <details class="faq-item">
       <summary data-en="Do consultations or the first visit cost anything?">상담이나 첫 방문에 비용이 드나요?</summary>
